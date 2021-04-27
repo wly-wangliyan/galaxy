@@ -1,0 +1,12 @@
+<div class="hint-container" #contentContainer [ngStyle]="{'margin-left':zLeft+'px'}">
+  <span class="hint-caret"></span>
+  <span class="hint-square">
+        <div class="hint-title">{{title}}</div>
+        <ul *ngIf="dataList">
+            <li *ngFor="let data of dataList;">
+                <span>{{data.name}}</span>
+                <span class="num">{{data.value}}</span>
+            </li>
+        </ul>
+    </span>
+</div>

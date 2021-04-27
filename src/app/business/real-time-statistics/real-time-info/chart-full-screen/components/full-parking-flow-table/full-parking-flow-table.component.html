@@ -1,0 +1,42 @@
+<div class="clearfix parking-flow-table-content">
+  <div class="parking-flow-table">
+    <div class="pull-left table-total-item">
+      <div class="table-total-title">
+        停车场总数
+      </div>
+      <div class="table-total-number">
+        <app-split-number [color]="'#165cbb'" [numberLength]="4" [splitNumber]="parkingCount?.total_num"></app-split-number>
+      </div>
+    </div>
+    <div class="pull-right table-total-item">
+      <div class="table-total-title">
+        总流量数
+      </div>
+      <div class="table-total-number">
+        <app-split-number [color]="'#2b8b64'" [numberLength]="9" [splitNumber]="totalFlowCount"></app-split-number>
+      </div>
+    </div>
+  </div>
+  <div class="table-detail-wrap">
+    <div class="row table-title">
+      <div class="col-xs-3">时段累计</div>
+      <div class="col-xs-3">路内流量</div>
+      <div class="col-xs-3">路外流量</div>
+      <div class="col-xs-3">总流量</div>
+    </div>
+    <div class="row table-detail" *ngIf="todayRealFlowData">
+      <div class="col-xs-3">今日</div>
+      <div class="col-xs-3">{{todayRealFlowData.road_inside_total_flow}}</div>
+      <div class="col-xs-3">{{todayRealFlowData.road_outside_total_flow}}</div>
+      <div class="col-xs-3">{{todayRealFlowData.total_flow}}</div>
+    </div>
+    <ng-container *ngIf="flowDayList&&flowDayList.length>0">
+      <div class="row table-detail">
+        <div class="col-xs-3">{{flowDayList[1].name}}</div>
+        <div class="col-xs-3">{{flowDayList[1].road_inside_entry_flow}}</div>
+        <div class="col-xs-3">{{flowDayList[1].road_outside_entry_flow}}</div>
+        <div class="col-xs-3">{{flowDayList[1].total_flow}}</div>
+      </div>
+    </ng-container>
+  </div>
+</div>

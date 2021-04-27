@@ -1,0 +1,62 @@
+<app-full-screen-item width="1120" zTitle="实时状态" headerBgType="1">
+  <ul class="real-container">
+    <li>
+      <h5>车场数</h5>
+      <div class="count">
+        <span appContentHover="车场数"
+              [dataList]="realStatusData.parking_count?.detail">{{realStatusData.parking_count?.value}}</span>
+      </div>
+    </li>
+    <li>
+      <h5>泊位数</h5>
+      <div class="count">
+        <span appContentHover="泊位数"
+              [dataList]="realStatusData.spot_count?.detail">{{realStatusData.spot_count?.value}}</span>
+      </div>
+    </li>
+    <li>
+      <h5>在线率</h5>
+      <div class="count">
+        <span appContentHover="在线率"
+              [dataList]="realStatusData.online_rate?.detail">{{realStatusData.online_rate?.value}}%</span>
+      </div>
+    </li>
+    <li>
+      <h5>车流量</h5>
+      <div class="count orange">
+        <app-magic-number [sHeight]="50" [sNumberWidth]="26" [sMaxLength]='5' [sFontSize]="48"
+                          [sNumber]="toString(realStatusData.car_flow_count?.value)"
+                          appContentHover="车流量" [dataList]="realStatusData.car_flow_count?.detail"></app-magic-number>
+        <!--        <span appContentHover="车流量" [dataList]="realStatusData.car_flow_count?.detail">{{realStatusData.car_flow_count?.value}}</span>-->
+      </div>
+    </li>
+    <li>
+      <h5>车位周转率</h5>
+      <div class="count">
+        <span>{{realStatusData.car_turnover_rate?.value}}</span>
+      </div>
+    </li>
+    <li>
+      <h5>用户数</h5>
+      <div class="count">
+        <span>{{realStatusData.user_count?.value}}</span>
+      </div>
+    </li>
+    <li>
+      <h5>车辆数</h5>
+      <div class="count">
+        <span>{{realStatusData.car_count?.value}}</span>
+      </div>
+    </li>
+    <li>
+      <h5>资金结算</h5>
+      <div class="count orange">
+        <app-magic-number [sHeight]="50" [sNumberWidth]="26" [sMaxLength]="8" [sFontSize]="48"
+                          [sNumber]="toString(realStatusData.capital_settlement?.value)"
+                          appContentHover="资金结算"
+                          [dataList]="realStatusData.capital_settlement?.detail"></app-magic-number>
+        <!--        <span appContentHover="资金结算" [dataList]="realStatusData.capital_settlement?.detail">{{realStatusData.capital_settlement?.value}}</span>-->
+      </div>
+    </li>
+  </ul>
+</app-full-screen-item>

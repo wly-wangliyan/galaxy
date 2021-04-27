@@ -1,0 +1,22 @@
+table th {
+  text-align: center;
+  padding-right: 8px;
+}
+
+table td {
+  text-align: center;
+}
+
+.modal-dialog {
+  /* width: 1066px; */
+  font-size: 14px;
+}
+
+.col-sm-9 {
+  padding-left: 8px;
+}
+
+.modal-body-table:not(:first-child) {
+  margin-top: 0;
+  border-top: 0;
+}

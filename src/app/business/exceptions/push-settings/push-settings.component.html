@@ -1,0 +1,98 @@
+<div class="header">
+  <app-crumb [level1Name]="'异常警告'" [level2Name]="'推送设置'" [level1RelativePath]="'../'"></app-crumb>
+  <div class="switch-btn-group" *ngIf="sendSettingStatue.status && (sendUserList.length < 50)">
+    <button class="switch-btn" (click)="onAddOrEditPushModalBtn()">新建</button>
+  </div>
+</div>
+<div class="content-flow">
+  <div class="list-container">
+    <!-- 关闭推送设置 -->
+    <ng-container *ngIf="isComplete && !sendSettingStatue.status">
+      <div class="no-opened">
+        <img src="../../../../assets/images/no_opened.png"/>
+        <h2>您还没有开启异常警告到期推送</h2>
+        <h4>停车场产生异常警告时会下发邮件至指定邮箱</h4>
+        <button (click)="onOpenImmediatelyBtn()" [disabled]="isOpenedDisable">马上开启</button>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="isComplete && sendSettingStatue.status">
+      <div class="opened">
+        <div class="search-form">
+          <div class="form-group">
+            <span>异常警告推送：</span>
+            <select class="setting-status" [(ngModel)]="sendSettingStatue.status" name="send_setting_status"
+                    (change)="changePushSetting($event)">
+              <option value="true">开启</option>
+              <option value="false">关闭</option>
+            </select>
+          </div>
+        </div>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>序号</th>
+            <th>收件人</th>
+            <th>邮箱</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let sendUser of sendUserList; let index = index">
+            <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+            <td>{{sendUser.receiver}}</td>
+            <td>{{sendUser.email}}</td>
+            <td class="td-operation">
+              <button class="btn-operation icon-edit" [title]="'编辑'"
+                      (click)="onAddOrEditPushModalBtn(false, sendUser)"></button>
+              <button class="btn-operation icon-delete" [title]="'删除'"
+                      (click)="onDeleteBtn(sendUser.abnormal_receiver_id)"></button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <app-no-data-page *ngIf="sendUserList.length === 0"></app-no-data-page>
+        <app-pagination
+          [currentPage]="searchAssistant.currentPage"
+          [pageCount]="searchAssistant.pageList.length"
+          (pageSelected)="searchAssistant.pageSelected($event)"
+        ></app-pagination>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<!-- 添加推送模态框 -->
+<div class="modal fade " id="addPushModal" data-backdrop="false" data-keyboard="true"
+     tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="onInverseBtn()">×</button>
+        <h4 class="modal-title">{{isAdd ? '新建' : '编辑'}}</h4></div>
+      <div class="modal-body">
+        <form class="form-horizontal" (submit)="onAddOrEditPushSubmit()" #addPushForm="ngForm" autocomplete="off">
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><b>*</b>收件人：</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" [(ngModel)]="currentSendUser.receiver" name="name" maxlength="20"
+                     appIgnoreSpace required></div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label"><b>*</b>邮箱：</label>
+            <div class="col-sm-7">
+              <input type="text" class="form-control" [(ngModel)]="currentSendUser.email" name="email" maxlength="100"
+                     appIgnoreSpace required></div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" [disabled]="!addPushForm.form.valid">
+              保存
+            </button>
+            <button type="button" class="btn btn-inverse" (click)="onInverseBtn()">
+              取消
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

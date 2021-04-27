@@ -1,0 +1,18 @@
+.drop-down-box-container {
+  position: absolute;
+  background: white;
+  border: 1px solid #d4d4d4;
+  z-index: 999;
+}
+
+.drop-down-box-item {
+  height: 26px;
+  line-height: 26px;
+  color:#333;
+}
+
+.drop-down-box-item:hover {
+  cursor: pointer;
+  color: white;
+  background: #77a0cb;
+}

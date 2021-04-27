@@ -1,0 +1,77 @@
+<div class="fs-container">
+  <div class="fs-body">
+    <div class="fs-left-side">
+      <div class="fs-left-side-item">
+        <div class="fs-both-side-item">
+          <app-full-border2>
+            <app-full-parking-access-state sourceHeight="243" sourceWidth="453"
+                                           [areaType]="2"></app-full-parking-access-state>
+          </app-full-border2>
+        </div>
+        <div class="fs-both-side-item">
+          <app-full-border2>
+            <app-full-parking-access-state sourceHeight="243" sourceWidth="453"
+                                           [areaType]="1"></app-full-parking-access-state>
+          </app-full-border2>
+        </div>
+      </div>
+      <div class="fs-left-side-item">
+        <div class="fs-both-side-item">
+          <app-full-border2>
+            <app-full-parking-utilization-rate2 sourceHeight="243" sourceWidth="453" sourceSize="sm"
+                                                [areaType]="2"
+                                                [parkingList]="parkingList"></app-full-parking-utilization-rate2>
+          </app-full-border2>
+        </div>
+        <div class="fs-both-side-item">
+          <app-full-border2>
+            <app-full-parking-utilization-rate2 sourceHeight="243" sourceWidth="453" sourceSize="sm"
+                                                [areaType]="1"
+                                                [parkingList]="parkingList"></app-full-parking-utilization-rate2>
+          </app-full-border2>
+        </div>
+      </div>
+      <div class="fs-left-side-item">
+        <div class="fs-both-side-item">
+          <app-full-border2>
+            <app-full-daily-flow-statistics
+              sourceHeight="243" sourceWidth="453" sourceSize="sm" [areaType]="2"></app-full-daily-flow-statistics>
+          </app-full-border2>
+        </div>
+        <div class="fs-both-side-item">
+          <app-full-border2>
+            <app-full-daily-flow-statistics
+              sourceHeight="243" sourceWidth="453" sourceSize="sm" [areaType]="1"></app-full-daily-flow-statistics>
+          </app-full-border2>
+        </div>
+      </div>
+      <div class="fs-left-side-item">
+        <app-full-parking-flow-table2></app-full-parking-flow-table2>
+      </div>
+    </div>
+    <!--右-->
+    <div class="fs-right-side">
+      <div class="fs-map-item">
+        <div class="fs-bg-logo"></div>
+        <app-full-border2 [arrowSize]="'lg'" [arrowRadius]="true">
+          <app-full-map2 [sourceHeight]="'773'" [sourceWidth]="'938'"
+                         (parkingListComplete)="parkingList=$event"></app-full-map2>
+        </app-full-border2>
+      </div>
+      <div class="fs-right-bottom-side">
+        <div class="fs-both-side-item">
+          <app-full-border2>
+            <app-full-monitor2 sourceHeight="243" sourceWidth="458" sourceSize="sm" [areaType]="2"></app-full-monitor2>
+          </app-full-border2>
+        </div>
+        <div class="fs-both-side-item">
+          <app-full-border2>
+            <app-full-monitor2 sourceHeight="243" sourceWidth="458" sourceSize="sm" [areaType]="1"></app-full-monitor2>
+          </app-full-border2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

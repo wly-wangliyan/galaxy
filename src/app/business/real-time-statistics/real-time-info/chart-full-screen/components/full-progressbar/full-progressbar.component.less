@@ -1,0 +1,77 @@
+.progress-container {
+  width: 176px;
+  height: 40px;
+  padding-left: 2px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.progress-header {
+  height: 20px;
+  font-size: 14px;
+}
+
+.progress-header span {
+  float: right;
+  line-height: 20px;
+}
+
+.progress-header span:first-child {
+  float: left;
+}
+
+.progress-header span:last-child {
+  font-weight: bold;
+  font-family: 'Microsoft YaHei';
+  font-size: 16px;
+}
+
+.progress-header span:nth-child(2) {
+  font-size: 12px;
+}
+
+.progress {
+  width: 170px;
+  height: 10px;
+  margin-top: 5px;
+  background: #000;
+  box-shadow: none;
+  border-radius: 5px;
+  & .progress-bar{
+    border-radius: 4px;
+  }
+}
+
+.progress-container-superlg {
+  width: 352px;
+  height: 80px;
+  padding-left: 4px;
+
+  .progress-header {
+    height: 40px;
+    font-size: 28px;
+  }
+
+  .progress-header span {
+    line-height: 40px;
+  }
+
+  .progress-header span:last-child {
+    font-size: 32px;
+  }
+
+  .progress-header span:nth-child(2) {
+    font-size: 24px;
+  }
+
+  .progress {
+    width: 340px;
+    height: 20px;
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    & .progress-bar{
+      border-radius: 8px;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+.real-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 60px;
+
+  & > li {
+    width: 23%;
+    height: 150px;
+
+    & > h5 {
+      font-weight: 400;
+      color: #fff;
+      font-size: 20px;
+    }
+
+    & > .count {
+      font-size: 48px;
+      font-family: Arial;
+      font-weight: bold;
+      color: #2897FF;
+      display: flex;
+      //position: relative;
+    }
+
+    & > .orange {
+      color: #FFB543;
+    }
+  }
+}
+
+:host ::ng-deep app-content-hover {
+  width: 1px;
+}

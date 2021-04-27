@@ -1,0 +1,74 @@
+.input-selector-container {
+  position: relative;
+}
+
+.search-parking {
+  width: 300px;
+  height: 34px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.search-parking span {
+  width: 1px;
+  height: 26px;
+  display: inline-block;
+  background: #ccc;
+  border: none;
+  outline: none;
+}
+
+.search-parking input {
+  width: 265px;
+  margin-right: 0;
+}
+
+.search-parking input, .search-parking input:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.search-parking button, .search-parking button:active, .search-parking button:active, .search-parking button:focus {
+  width: 34px;
+  height: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.search-parking i {
+  width: 8px;
+  height: 6px;
+  display: block;
+  margin: 0 13px;
+  background: url(/assets/images/icon_arrow.jpg) no-repeat center;
+}
+
+.parking-list {
+  width: 300px;
+  max-height: 340px;
+  position: absolute;
+  left: 0;
+  top: 34px;
+  background: #fff;
+  z-index: 100;
+  border: 1px solid #d8d8d8;
+  border-top: none;
+  display: none;
+  overflow: hidden;
+  overflow-y: auto;
+  border-radius: 0 0 3px 3px;
+}
+
+.parking-list > .parking-item {
+  padding: 5px 10px;
+}
+
+.parking-item:hover {
+  cursor: pointer;
+  color: #45c8dc;
+}

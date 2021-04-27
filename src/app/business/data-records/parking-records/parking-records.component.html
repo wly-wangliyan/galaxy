@@ -1,0 +1,137 @@
+<div class="header">
+  <app-crumb [level1Name]="'数据记录'" [level2Name]="'停车记录'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form" autocomplete="off">
+      <div class="form-group">
+        <span>停车场：</span>
+        <input class="form-control" [(ngModel)]="searchParams.parking_name" name="parking_name" placeholder="请输入停车场名称"
+               appIgnoreSpace autocomplete="off"
+               (keyup)="searchAssistant.submitSearch(true,$event)"/>
+      </div>
+      <div class="form-group">
+        <span>车牌号：</span>
+        <input class="form-control" [(ngModel)]="searchParams.car_id" name="car_id" placeholder="请输入车牌号" appIgnoreSpace
+               autocomplete="off"
+               (keyup)="searchAssistant.submitSearch(true,$event)"/>
+      </div>
+      <div class="form-group">
+        <span>用户类型：</span>
+        <select class="form-control" [(ngModel)]="searchParams.user_types" name="user_types">
+          <option value="">全部</option>
+          <option *ngFor="let userType of defaultUserType" [value]="userType">
+            {{userType|userTypePipe}}
+          </option>
+        </select>
+      </div>
+    </form>
+    <form class="search-form" autocomplete="off">
+      <div class="form-group form-time-group">
+        <span>入场时间：</span>
+        <app-date-time-ymdhms [(ngModel)]="entrance_start_date" name="entrance_start_date"
+                              [borderColor]="'#eeeff5'"></app-date-time-ymdhms>
+        <span class="form-separator">-</span>
+        <app-date-time-ymdhms [(ngModel)]="entrance_end_date" name="entrance_end_date"
+                              [borderColor]="'#eeeff5'"></app-date-time-ymdhms>
+      </div>
+      <div class="form-group">
+        <span>出场时间：</span>
+        <app-date-time-ymdhms [(ngModel)]="exit_start_date" name="exit_start_date"
+                              [borderColor]="'#eeeff5'"></app-date-time-ymdhms>
+        <span class="form-separator">-</span>
+        <app-date-time-ymdhms [(ngModel)]="exit_end_date" name="exit_end_date"
+                              [borderColor]="'#eeeff5'"></app-date-time-ymdhms>
+        <button type="button" (click)="searchAssistant.submitSearch(false)">查询</button>
+        <button type="button" class="parking-btn" (click)="onParkRecordExport()" *ngIf="export_hidden">导出</button>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>停车场</th>
+        <th>车牌号</th>
+        <th>用户类型</th>
+        <th>入场时间</th>
+        <th>停车时长</th>
+        <!--<th>实收金额(元)</th>-->
+        <th>出场时间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let parkingRecord of parkingRecordList;let index=index" (click)="onSelected(parkingRecord)"
+          [ngClass]="{tableActive:parkingRecord.record_id==selectParkingRecord.record_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td [title]="parkingRecord.parking?.parking_name">{{parkingRecord.parking?.parking_name|zMaxLength:20}}</td>
+        <td>
+          <span *ngIf="parkingRecord.car_id.startsWith('无')">无牌车</span>
+          <span *ngIf="!parkingRecord.car_id.startsWith('无')">{{parkingRecord.car_id}}</span>
+        </td>
+        <td [title]="parkingRecord.user_types|userTypePipe">{{parkingRecord.user_types|userTypePipe |zMaxLength}}
+        </td>
+        <td>{{parkingRecord.entry_time*1000 | date:"y-MM-dd HH:mm:ss"}}</td>
+        <td>{{parkingRecord.entry_time|zDuration:parkingRecord.exit_time}}</td>
+        <!--<td>{{parkingRecord.receive_amount_VO}}</td>-->
+        <td>{{parkingRecord.exit_time?(parkingRecord.exit_time*1000| date:"y-MM-dd HH:mm:ss"):'--' }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && parkingRecordList.length === 0"></app-no-data-page>
+    <app-pagination
+      [currentPage]="searchAssistant.currentPage"
+      [pageCount]="searchAssistant.pageList.length"
+      (pageSelected)="searchAssistant.pageSelected($event)"
+    ></app-pagination>
+  </div>
+</div>
+<!-- 提示模态框 -->
+<div class="modal fade" data-keyboard="false" data-backdrop="false" tabindex="-1" #export>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseModal()">
+          &times;
+        </button>
+        <h4 class="modal-title">导出</h4>
+      </div>
+      <form class="form-horizontal" #exportRecord="ngForm">
+        <div class="modal-body">
+          <!--<div class="modal-warning-icon"></div>
+          <div>{{message}}</div>-->
+          <div class="content-input">
+           <div class="row">
+             <div class="col-sm-3"><span class="modal-red">*</span><span class="model-text">停车场名称:</span></div>
+             <div class="col-sm-9">
+               <app-input-selector placeholder="" idIdentifier="parking_id" nameIdentifier="parking_name" [dataList]="parkList"
+                                   (selectChange)="onSelectPark($event)">
+               </app-input-selector>
+             </div>
+           </div>
+          </div>
+          <div class="content-input">
+            <div class="row">
+              <div class="col-sm-3"><span class="modal-red">*</span><span class="model-text">导出期限:</span></div>
+              <div class="col-sm-9">
+                <div class="date-picker">
+                  <app-date-time class="start-date" [(ngModel)]="export_entrance_start_date" name="export_entrance_start_date" [borderColor]="'#eeeff5'"
+                                 [timepickerOptions]="false" [datepickerOptions]="datePickerDefaultOptions"
+                                 [customDateFormat]="false"></app-date-time>
+                  <span>-</span>
+                  <app-date-time class="end-date" [(ngModel)]="export_entrance_end_date" name="export_entrance_end_date" [borderColor]="'#eeeff5'"
+                                 [timepickerOptions]="false" [datepickerOptions]="datePickerDefaultOptions"
+                                 [customDateFormat]="false"></app-date-time>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="time-tip">时间跨度最多支持7天</div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onExportModal()">确定</button>
+        <button type="button" class="btn btn-inverse" (click)="onCloseModal()">取消</button>
+      </div>
+    </div>
+  </div>
+</div>

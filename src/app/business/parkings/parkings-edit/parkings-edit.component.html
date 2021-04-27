@@ -1,0 +1,14 @@
+<div class="header">
+  <app-crumb [level1Name]="'基础管理'" [level2Name]="'停车场'" [level3Name]="'查看详情'" [level2RelativePath]="'../'"></app-crumb>
+  <div class="switch-btn-group">
+    <button class="switch-btn" [routerLink]="['update-records']">变更记录</button>
+  </div>
+</div>
+<div class="tab-bar">
+  <ul>
+    <li [routerLink]="['basic-info']" routerLinkActive="active">基本信息</li>
+    <li [routerLink]="['operation-relation']" routerLinkActive="active">运营关系信息</li>
+    <!--<li [routerLink]="['select-groups']" routerLinkActive="active">分组信息</li>-->
+  </ul>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,30 @@
+<div class="full-container"
+     [class.full-container-superlg]="sourceSize === 'superlg'"
+     [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+  <app-full-title [title]="'车位填充率'" [globalSize]="sourceSize"></app-full-title>
+  <div class="chart-item-content">
+    <div echarts class="chart-dashboard" [options]="chartOptions" (chartInit)="onChartInit($event)">
+    </div>
+    <div class="chart-detail">
+      <div class="chart-header">
+        <app-full-counter [title]="'车位总数'"
+                          [count]="dataInfo?dataInfo.total_num:0"
+                          [size]="sourceSize"></app-full-counter>
+      </div>
+      <div class="chart-progress-1">
+        <app-full-progressbar [title]="'占用车位数'"
+                              [count]="dataInfo?dataInfo.used_num:0"
+                              [total]="dataInfo?dataInfo.total_num:0"
+                              [color]="'#47d26d'"
+                              [size]="sourceSize"></app-full-progressbar>
+      </div>
+      <div class="chart-progress-2">
+        <app-full-progressbar [title]="'空闲车位数'" [count]="dataInfo?dataInfo.unused_num:0"
+                              [total]="dataInfo?dataInfo.total_num:0"
+                              [color]="'#f04646'"
+                              [size]="sourceSize"></app-full-progressbar>
+      </div>
+    </div>
+  </div>
+</div>
+

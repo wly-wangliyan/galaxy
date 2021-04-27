@@ -1,0 +1,45 @@
+.parking-flow-table-content {
+  width: 940px;
+  height: 320px;
+  margin: 0 auto;
+}
+
+.parking-flow-table {
+  overflow: hidden;
+}
+
+.table-total-item > .table-total-title {
+  color: #1cd5c3;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.table-detail-wrap {
+  padding: 0 15px;
+  margin-top: 20px;
+  text-align: center;
+  color: #fff;
+  border: 1px solid #10bae3;
+}
+
+.table-detail-wrap > .table-title {
+  background: rgba(34, 255, 224, 0.3);
+  height: 60px;
+  line-height: 60px;
+  font-size: 22px;
+}
+
+.table-detail-wrap > .table-detail {
+  height: 65px;
+  line-height: 65px;
+  font-size: 28px;
+}
+
+.table-detail-wrap > .table-title > div,.table-detail-wrap > .table-detail > div {
+  border-right: 1px solid #10bae3;
+}
+
+.table-detail-wrap > .table-title > div:nth-last-of-type(1),
+.table-detail-wrap > .table-detail > div:nth-last-of-type(1) {
+  border-right: 0;
+}

@@ -1,0 +1,18 @@
+<div class="full-map-container" id="map-container" [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+</div>
+<div class="right-side-item">
+  <ul>
+    <li><span [class.icon-traffic-on]="isTrafficOn"
+              [class.icon-traffic-off]="!isTrafficOn"
+              (click)="onTrafficBtnClick()"></span>路况
+    </li>
+    <li class="parking-area-type">路外停车场</li>
+    <li class="parking-area-type">路内停车场</li>
+    <li><i></i>泊位紧张</li>
+    <li><i></i>泊位适中</li>
+    <li><i></i>泊位充足</li>
+  </ul>
+</div>
+
+<app-map-monitor-video></app-map-monitor-video>
+

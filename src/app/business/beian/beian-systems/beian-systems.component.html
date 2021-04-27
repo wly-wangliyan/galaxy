@@ -1,0 +1,11 @@
+<div class="header">
+  <app-crumb [level1Name]="'备案审核'" [level2Name]="'管理系统'"></app-crumb>
+</div>
+<div class="tab-bar beian-bar">
+  <ul>
+    <li [routerLink]="['check-pending']" routerLinkActive="active">待审核</li>
+    <li [routerLink]="['checked']" routerLinkActive="active">已通过</li>
+    <li [routerLink]="['not-pass']" routerLinkActive="active">未通过</li>
+  </ul>
+</div>
+<router-outlet></router-outlet>

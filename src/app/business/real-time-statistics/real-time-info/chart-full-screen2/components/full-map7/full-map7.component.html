@@ -1,0 +1,51 @@
+<div class="full-map-container">
+  <i class="bg-full-screen-left"></i>
+  <i class="bg-full-screen-right"></i>
+  <div id="map-screen-container"></div>
+  <!--  右下角 -->
+  <div class="map-description">
+    <div class="map-traffic">
+      <span>路况：</span>
+
+      <label class="switch">
+        <span class="on" *ngIf="switchValue">on</span>
+        <span class="off" *ngIf="!switchValue">off</span>
+        <input type="checkbox" [(ngModel)]="switchValue" (change)="onSwitchChange()">
+        <div class="slider round"></div>
+      </label>
+    </div>
+    <div class="desc-item">
+      <b>
+        <img src="../../../../../../../assets/images/screen/icon_map_inside_parking.png" alt="">
+      </b>
+      <span>路内停车场</span>
+    </div>
+    <div class="desc-item">
+      <b>
+        <img src="../../../../../../../assets/images/screen/icon_map_outside_parking.png" alt="">
+      </b>
+      <span>路外停车场</span>
+    </div>
+    <div class="desc-item">
+      <b>
+        <i class="point" style="background: #FA394E"></i>
+      </b>
+      <span>泊位紧张</span>
+    </div>
+    <div class="desc-item">
+      <b>
+        <i class="point" style="background: #DDFF37"></i>
+      </b>
+      <span>泊位宽松</span>
+    </div>
+    <div class="desc-item">
+      <b>
+        <i class="point" style="background: #5F9BFF"></i>
+      </b>
+      <span>泊位空闲</span>
+    </div>
+  </div>
+</div>
+
+
+<app-map-monitor-video></app-map-monitor-video>

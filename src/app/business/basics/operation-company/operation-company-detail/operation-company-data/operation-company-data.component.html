@@ -1,0 +1,63 @@
+<div class="content-flow">
+  <div class="table-detail-container">
+    <table class="table">
+      <tr>
+        <td class="active td-border-right">公司名称：</td>
+        <td class="td-border-right">
+          {{companyInfo.company_name|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">公司地址：</td>
+        <td class="td-border-right">
+          {{companyInfo.province+companyInfo.city +companyInfo.district}}
+          {{companyInfo.address}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">法人：</td>
+        <td class="td-border-right">
+          {{companyInfo.person|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">联系人：</td>
+        <td class="td-border-right">
+          {{companyInfo.contacts|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">联系电话：</td>
+        <td class="td-border-right">
+          {{companyInfo.telephone|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">营业执照编号：</td>
+        <td class="td-border-right">
+          {{companyInfo.licence_num|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">营业执照照片：</td>
+        <td class="td-border-right">
+          <div class="col-sm-5 input-group">
+            <ng-container *ngIf="!companyInfo.licence_photos || companyInfo.licence_photos.length < 1">--</ng-container>
+            <ng-container *ngIf="companyInfo.licence_photos && companyInfo.licence_photos.length > 0">
+              <app-z-photo-select [hasAddPicture]="false" [hasDeletePicture]="false" [imageUrls]="companyInfo.licence_photos"></app-z-photo-select>
+            </ng-container>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">注册时间：</td>
+        <td class="td-border-right">
+          <ng-container *ngIf="companyInfo.created_time">
+            {{companyInfo.created_time*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}
+          </ng-container>
+          <span *ngIf="!companyInfo.created_time">--</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

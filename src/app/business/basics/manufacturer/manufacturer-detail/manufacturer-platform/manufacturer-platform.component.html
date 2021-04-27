@@ -1,0 +1,38 @@
+<div class="content-flow">
+  <div class="list-container">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>系统名称</th>
+        <th>软著权编号</th>
+        <th>软著权资质</th>
+        <th>提交时间</th>
+        <th>审核时间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let platform of platformList; let index=index" (click)="onSelect(platform)"
+          [ngClass]="{tableActive: platform.platform_id==currentSelectPlatform.platform_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td>{{platform.platform_name}}</td>
+        <td>{{platform.authority_num}}</td>
+        <td class="td-operation">
+          <button *ngIf="platform.authority_images&&platform.authority_images.length>0"
+                  [title]="'查看'" class="btn-operation icon-view"
+                  (click)="onDetailBtnClick(platform)"></button>
+        </td>
+        <td>{{platform.updated_time ? (platform.updated_time *1000 | date: 'yyyy-MM-dd HH:mm:ss'):'--'}}</td>
+        <td>{{platform.created_time ? (platform.created_time *1000 | date: 'yyyy-MM-dd HH:mm:ss'):'--'}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && platformList.length === 0"></app-no-data-page>
+    <app-pagination [currentPage]="searchAssistant.currentPage"
+                    [pageCount]="searchAssistant.pageList.length"
+                    (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+  </div>
+</div>
+
+<app-z-photo-select [isShowMinImg]="false" [imageUrls]="currentSelectPlatform.authority_images"
+                    #zPhotoSelectComponent></app-z-photo-select>

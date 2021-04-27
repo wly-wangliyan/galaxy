@@ -1,0 +1,104 @@
+<div class="detail-modal fade viewDetail parkingViewDetailModel" data-backdrop="false"
+     data-keyboard="true" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" #viewDetailModal>
+  <div class="modal-dialog detail-modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">查看详情</h4>
+      </div>
+      <form class="form-horizontal" #editServiceForm="ngForm">
+        <div class="modal-body">
+          <div class="modal-body-table">
+            <div>
+              <div class="col-sm-3"><span>状态:</span></div>
+              <div class="col-sm-9">
+                <span>{{generateStatus(parking)}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-3"><span>停车场名称:</span></div>
+              <div class="col-sm-9">
+                <span>{{parking.parking_name |zPlaceholder}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-3"><span>停车场地址:</span></div>
+              <div class="col-sm-9">
+                <span class="parking-address">{{parking.address |zPlaceholder}}</span>
+                <button type="button" class="btn btn-select-map" (click)="openMapModal()" >
+                  查看位置
+                </button>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-3"><span>停车场用地:</span></div>
+              <div class="col-sm-9">
+                <span>{{parking.area_type ? (parking.area_type | areaType) : "--"}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-3"><span>停车场类型:</span></div>
+              <div class="col-sm-9">
+                <span>{{parking.parking_category ? (parking.parking_category | parkingType) :"--"}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-3"><span>产权联系人:</span></div>
+              <div class="col-sm-9">
+                <span>{{parking.contacts |zPlaceholder}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-3"><span>联系电话:</span></div>
+              <div class="col-sm-9">
+                <span *ngIf="parking.telephone">{{parking.telephone[0] |zPlaceholder}}</span>
+                <span *ngIf="!parking.telephone">--</span>
+              </div>
+            </div>
+            <!--<div>-->
+              <!--<div class="col-sm-3"><span>备案有效期:</span></div>-->
+              <!--<div class="col-sm-9">-->
+                <!--<span *ngIf="!(parking.start_time && parking.end_time)">&#45;&#45;</span>-->
+                <!--<ng-container *ngIf="parking.start_time && parking.end_time">-->
+                  <!--<span>{{parking.start_time* 1000 | date:"yyyy-MM-dd"}}</span>至-->
+                  <!--<span>{{(parking.end_time-1)* 1000 | date:"yyyy-MM-dd"}}</span>-->
+                <!--</ng-container>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div>-->
+              <!--<div class="col-sm-3"><span>备案照片:</span></div>-->
+              <!--<div class="col-sm-9">-->
+                <!--<ng-container *ngIf="parking.images&&parking.images.length>0">-->
+                  <!--<app-z-photo-select [imageUrls]="parking.images" style="margin-left: 5px;"></app-z-photo-select>-->
+                <!--</ng-container>-->
+                <!--<ng-container *ngIf="!parking.images||(parking.images.length<1)">-->
+                  <!--<span>&#45;&#45;</span>-->
+                <!--</ng-container>-->
+              <!--</div>-->
+            <!--</div>-->
+            <div>
+              <div class="col-sm-3"><span>系统名称：</span></div>
+              <div class="col-sm-9">
+                <span>{{parking.platformName|zPlaceholder}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-3"><span>系统厂商：</span></div>
+              <div class="col-sm-9">
+                <span>{{parking.manufacturerName|zPlaceholder}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- 地图组件 -->
+<app-z-map-select-point [mapObj]="mapObj"></app-z-map-select-point>
+

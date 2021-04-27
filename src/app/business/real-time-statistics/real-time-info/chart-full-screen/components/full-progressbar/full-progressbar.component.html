@@ -1,0 +1,13 @@
+<div class="progress-container" [class.progress-container-superlg]="size === 'superlg'">
+  <div class="progress-header">
+    <span>{{title}}</span>
+    <span>&ensp;个</span>
+    <span [ngStyle]="{color: color}">{{count}}</span>
+  </div>
+  <div class="progress" [ngStyle]="generateShadow()">
+    <div class="progress-bar" role="progressbar"
+         (aria-valuenow)="percent" aria-valuemin="0" aria-valuemax="100"
+         [ngStyle]="{background: color,width:percent+'%'}">
+    </div>
+  </div>
+</div>

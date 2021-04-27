@@ -1,0 +1,15 @@
+<div class="header">
+  <app-crumb [level1Name]="'基础管理'" [level2Name]="'物业公司'" [level3Name]="'查看详情'"
+             [level2RelativePath]="'../'"></app-crumb>
+</div>
+<div class="tab-bar">
+  <ul>
+    <li [routerLink]="['data']"
+        routerLinkActive="active">企业资料
+    </li>
+    <li [routerLink]="['parkings']"
+        routerLinkActive="active">停车场
+    </li>
+  </ul>
+</div>
+<router-outlet></router-outlet>

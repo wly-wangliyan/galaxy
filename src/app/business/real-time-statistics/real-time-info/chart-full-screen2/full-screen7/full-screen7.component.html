@@ -1,0 +1,43 @@
+<div class="view">
+  <div class="fs-container">
+    <div class="fs-map-center">
+      <app-full-map7></app-full-map7>
+    </div>
+    <div class="fs-header">
+      <div class="left">
+      </div>
+      <div class="center">沈阳智慧停车平台</div>
+      <div class="right">
+      </div>
+    </div>
+    <div class="fs-content-left">
+      <div class="fs-content">
+        <app-screen7-left-one style="flex:1"></app-screen7-left-one>
+        <app-screen7-left-two style="flex: 1"></app-screen7-left-two>
+        <app-screen7-left-three style="flex: 1"></app-screen7-left-three>
+        <app-screen7-left-four style="flex: 1" [entryFlowList]="entryFlowList"></app-screen7-left-four>
+        <app-screen7-left-five style="flex: 1"></app-screen7-left-five>
+      </div>
+    </div>
+    <div class="fs-content-right">
+      <div class="fs-content">
+        <app-screen7-right-one style="flex: 1">
+          <app-full-screen-item zTitle="路内出入场时间分布" headerBgType="3">
+            <app-full-flow-distribution-curve3 [areaType]="1"
+                                               (entryFlowComplete)="entryFlowList=$event"></app-full-flow-distribution-curve3>
+          </app-full-screen-item>
+        </app-screen7-right-one>
+        <app-screen7-right-two style="flex: 1">
+          <app-full-screen-item zTitle="路外出入场时间分布" headerBgType="3">
+            <app-full-flow-distribution-curve3 [areaType]="2"></app-full-flow-distribution-curve3>
+          </app-full-screen-item>
+        </app-screen7-right-two>
+        <app-screen7-right-three style="flex: 1"></app-screen7-right-three>
+        <app-screen7-right-four style="flex: 1"></app-screen7-right-four>
+        <app-screen7-right-five style="flex: 1"></app-screen7-right-five>
+        <app-screen7-right-six style="flex: 1"></app-screen7-right-six>
+      </div>
+    </div>
+    <i class="bg-bottom-fs-container-line"></i>
+  </div>
+</div>

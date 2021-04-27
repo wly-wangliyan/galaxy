@@ -1,0 +1,234 @@
+<div class="header">
+  <app-crumb [level1Name]="'基础管理'" [level2Name]="'停车场'" [level3Name]="'查看详情'" [level2RelativePath]="'../../'"
+             [level3RelativePath]="'../'"
+             [level4Name]="'变更记录'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form">
+      <div class="form-group">
+        <span>变更类型：</span>
+        <select class="form-control" [(ngModel)]="searchParams.update_type" name="update_type">
+          <option value=0>请选择类型</option>
+          <option *ngFor="let updateType of updateTypeList" [value]="updateType">{{updateType | updateType}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <span>操作类型：</span>
+        <select class="form-control" [(ngModel)]="searchParams.operate_type" name="operate_type">
+          <option value="">全部</option>
+          <option *ngFor="let operateType of operateTypeList" [value]="operateType">{{operateType | operateType}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <span>操作人：</span>
+        <input class="form-control" placeholder="请输入操作人姓名" [(ngModel)]="searchParams.realname" name="realname"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>更新时间：</span>
+        <app-date-time-ymdhms [(ngModel)]="update_start_time" name="update_start_time"
+                              (change)="searchAssistant.submitSearch(true, $event)"></app-date-time-ymdhms>
+        <span class="form-separator">-</span>
+        <app-date-time-ymdhms [(ngModel)]="update_end_time" name="update_end_time"
+                              (change)="searchAssistant.submitSearch(true, $event)"></app-date-time-ymdhms>
+        <button type="button" (click)="searchAssistant.submitSearch(false)">查询</button>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>变更类型</th>
+        <th>操作类型</th>
+        <th>更新时间</th>
+        <th>操作人</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let updateRecords of updateRecordsList; let index=index" (click)="onSelect(updateRecords)"
+          [ngClass]="{tableActive: updateRecords.record_id==currentSelectUpdateRecords.record_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td>{{updateRecords.update_type | updateType}}</td>
+        <td>{{updateRecords.operate_type | operateType}}</td>
+        <td>{{updateRecords.updated_time*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td>{{updateRecords.operator|zPlaceholder}}</td>
+        <td class="td-operation">
+          <button [title]="'查看详情'" class="icon-view"
+                  (click)="onDetailBtnClick(updateRecords, updateRecords.operate_type)"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && updateRecordsList.length === 0"></app-no-data-page>
+    <app-pagination [currentPage]="searchAssistant.currentPage"
+                    [pageCount]="searchAssistant.pageList.length"
+                    (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+  </div>
+</div>
+
+<!-- 查看详情模态框 -->
+<div class="records-modal fade " id="viewDetailModal" data-backdrop="false" data-keyboard="true" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" *ngIf="selectedUpdateRecordDetail">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">详情</h4></div>
+      <div class="modal-body">
+        <!-- 停车场变更记录 -->
+        <div class="modal-body-table" *ngIf="selectedUpdateRecordDetail.update_type===1">
+          <div>
+            <div class="col-sm-4"><span>状态：</span></div>
+            <div class="col-sm-8"><span>{{convertBeianStatus(selectedUpdateRecordDetail.msg.beian_status)}}</span>
+            </div>
+          </div>
+          <div>
+            <div class="col-sm-4"><span>停车场名称：</span></div>
+            <div class="col-sm-8"><span>{{selectedUpdateRecordDetail.msg.parking_name|zPlaceholder}}</span>
+            </div>
+          </div>
+          <div>
+            <div class="col-sm-4"><span>停车场地址：</span></div>
+            <div class="col-sm-8"><span>{{(selectedUpdateRecordDetail.msg | parkingFormatAddress:1)}}</span>
+            </div>
+          </div>
+          <div>
+            <div class="col-sm-4"><span>停车场类型：</span></div>
+            <div class="col-sm-8"><span>{{selectedUpdateRecordDetail.msg.parking_category ? (selectedUpdateRecordDetail.msg.parking_category | parkingType) : '--'}}</span>
+            </div>
+          </div>
+          <div>
+            <div class="col-sm-4"><span>停车场用地：</span></div>
+            <div class="col-sm-8"><span>{{selectedUpdateRecordDetail.msg.area_type ? (selectedUpdateRecordDetail.msg.area_type | areaType) : '--'}}</span>
+            </div>
+          </div>
+          <div>
+            <div class="col-sm-4"><span>产权联系人：</span></div>
+            <div class="col-sm-8"><span>{{selectedUpdateRecordDetail.msg.contacts|zPlaceholder}}</span>
+            </div>
+          </div>
+          <div>
+            <div class="col-sm-4"><span>联系电话：</span></div>
+            <div class="col-sm-8"><span>{{selectedUpdateRecordDetail.msg.telephone |zPlaceholder}}</span>
+            </div>
+          </div>
+          <ng-container *ngIf="selectedUpdateRecordDetail.operate_type==='update'">
+            <div>
+              <div class="col-sm-4"><span>修改后的状态：</span></div>
+              <div class="col-sm-8">
+                <span>{{convertBeianStatus(selectedUpdateRecordDetail.msg.u_beian_status)}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-4"><span>修改后的停车场名称：</span></div>
+              <div class="col-sm-8">
+                <span>{{selectedUpdateRecordDetail.msg.u_parking_name ? selectedUpdateRecordDetail.msg.u_parking_name : '--'}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-4"><span>修改后的停车场地址：</span></div>
+              <div class="col-sm-8">
+                <span>{{(selectedUpdateRecordDetail.msg | parkingFormatAddress:1)}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-4"><span>修改后的停车场类型：</span></div>
+              <div class="col-sm-8">
+                <span>{{selectedUpdateRecordDetail.msg.u_parking_category ? (selectedUpdateRecordDetail.msg.u_parking_category | parkingType) : '--'}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-4"><span>修改后的停车场用地：</span></div>
+              <div class="col-sm-8">
+                <span>{{selectedUpdateRecordDetail.msg.u_area_type ? (selectedUpdateRecordDetail.msg.u_area_type | areaType) : '--'}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-4"><span>修改后的联系人：</span></div>
+              <div class="col-sm-8">
+                <span>{{selectedUpdateRecordDetail.msg.u_contacts |zPlaceholder}}</span>
+              </div>
+            </div>
+            <div>
+              <div class="col-sm-4"><span>修改后的联系电话：</span></div>
+              <div class="col-sm-8">
+                <span>{{selectedUpdateRecordDetail.msg.u_telephone |zPlaceholder}}</span>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <!-- 分组变更记录 -->
+        <div class="modal-body-table" *ngIf="selectedUpdateRecordDetail.update_type===2">
+          <div>
+            <div class="col-sm-4"><span>分组名称：</span></div>
+            <div class="col-sm-8"><span>{{selectedUpdateRecordDetail.msg.parking_group_names |zPlaceholder}}</span>
+            </div>
+          </div>
+          <div *ngIf="selectedUpdateRecordDetail.operate_type==='update'">
+            <div class="col-sm-4"><span>修改后的分组名称：</span></div>
+            <div class="col-sm-8">
+              <span>{{selectedUpdateRecordDetail.msg.u_parking_group_names |zPlaceholder}}</span>
+            </div>
+          </div>
+        </div>
+        <!-- 物业公司变更记录 -->
+        <div class="modal-body-table" *ngIf="selectedUpdateRecordDetail.update_type===3">
+          <div>
+            <div class="col-sm-4"><span>物业公司名称：</span></div>
+            <div class="col-sm-8"><span>{{selectedUpdateRecordDetail.msg.company_name|zPlaceholder}}</span>
+            </div>
+          </div>
+          <div>
+            <div class="col-sm-4"><span>开始运营时间：</span></div>
+            <div class="col-sm-8">
+              <span>{{selectedUpdateRecordDetail.msg.start_time ? (selectedUpdateRecordDetail.msg.start_time*1000 | date: 'yyyy-MM-dd HH:mm:ss') : '--'}}</span>
+            </div>
+          </div>
+          <div *ngIf="selectedUpdateRecordDetail.operate_type==='update'">
+            <div class="col-sm-4"><span>修改后的物业公司名称：</span></div>
+            <div class="col-sm-8">
+              <span>{{selectedUpdateRecordDetail.msg.u_company_name ? selectedUpdateRecordDetail.msg.u_company_name : '--'}}</span>
+            </div>
+          </div>
+          <div *ngIf="selectedUpdateRecordDetail.operate_type==='update'">
+            <div class="col-sm-4"><span>修改后的开始运营时间：</span></div>
+            <div class="col-sm-8">
+              <span>{{selectedUpdateRecordDetail.msg.u_start_time ? (selectedUpdateRecordDetail.msg.u_start_time*1000 | date: 'yyyy-MM-dd HH:mm:ss') : '--'}}</span>
+            </div>
+          </div>
+        </div>
+        <!-- 管理系统变更记录 -->
+        <div class="modal-body-table" *ngIf="selectedUpdateRecordDetail.update_type===4">
+          <div>
+            <div class="col-sm-4"><span>管理系统-厂商：</span></div>
+            <div class="col-sm-8"><span>{{selectedUpdateRecordDetail.msg.platformFullName}}</span>
+            </div>
+          </div>
+          <div>
+            <div class="col-sm-4"><span>开始运营时间：</span></div>
+            <div class="col-sm-8">
+              <span>{{selectedUpdateRecordDetail.msg.start_time ? (selectedUpdateRecordDetail.msg.start_time*1000 | date: 'yyyy-MM-dd HH:mm:ss') : '--'}}</span>
+            </div>
+          </div>
+          <div *ngIf="selectedUpdateRecordDetail.operate_type==='update'">
+            <div class="col-sm-4"><span>修改后的管理系统-厂商：</span></div>
+            <div class="col-sm-8">
+              <span>{{selectedUpdateRecordDetail.msg.u_platformFullName}}</span>
+            </div>
+          </div>
+          <div *ngIf="selectedUpdateRecordDetail.operate_type==='update'">
+            <div class="col-sm-4"><span>修改后的开始运营时间：</span></div>
+            <div class="col-sm-8">
+              <span>{{selectedUpdateRecordDetail.msg.u_start_time ? (selectedUpdateRecordDetail.msg.u_start_time*1000 | date: 'yyyy-MM-dd HH:mm:ss') : '--'}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-primary">关闭</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

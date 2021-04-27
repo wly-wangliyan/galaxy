@@ -1,0 +1,7 @@
+.fs-container {
+  width: 100vw;
+  height: 100vh;
+  background: #011428 url('/assets/images/screen/full_screen_bg_bottom.png');
+  -webkit-background-size: 200%;
+  background-size: 200%;
+}

@@ -1,0 +1,69 @@
+<div class="header">
+  <app-crumb [level1Name]="'数据记录'" [level2Name]="'上传记录'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form" autocomplete="off">
+      <div class="form-group">
+        <span>停车场：</span>
+        <input class="form-control" [(ngModel)]="searchParams.parking_name" name="parking_name" placeholder="请输入停车场名称"
+               appIgnoreSpace autocomplete="off"
+               (keyup)="searchAssistant.submitSearch(true,$event)"/>
+      </div>
+      <div class="form-group">
+        <span>运营公司：</span>
+        <input class="form-control" [(ngModel)]="searchParams.company_name" name="company_name" placeholder="请输入运营公司名称"
+               appIgnoreSpace autocomplete="off"
+               (keyup)="searchAssistant.submitSearch(true,$event)"/>
+      </div>
+      <div class="form-group">
+        <span>收费系统：</span>
+        <input class="form-control" [(ngModel)]="searchParams.platform_name" name="platform_name"
+               placeholder="请输入收费系统名称" appIgnoreSpace autocomplete="off"
+               (keyup)="searchAssistant.submitSearch(true,$event)"/>
+      </div>
+      <div class="form-group">
+        <span>上传时间：</span>
+        <app-date-time-ymdhms [(ngModel)]="upload_start_date" name="upload_start_date"
+                              [borderColor]="'#eeeff5'"></app-date-time-ymdhms>
+        <span class="form-separator">-</span>
+        <app-date-time-ymdhms [(ngModel)]="upload_end_date" name="upload_end_date"
+                              [borderColor]="'#eeeff5'"></app-date-time-ymdhms>
+        <button type="button" (click)="searchAssistant.submitSearch(false)">查询</button>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>停车场</th>
+        <th>运营公司</th>
+        <th>收费系统</th>
+        <th>传输内容</th>
+        <th>传输时间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let uploadRecord of uploadRecordList;let index=index" (click)="onSelected(uploadRecord)"
+          [ngClass]="{tableActive:uploadRecord.upload_record_id==selectUploadRecord.upload_record_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td [title]="uploadRecord.parking?.parking_name">{{uploadRecord.parking?.parking_name|zMaxLength:20}}</td>
+        <td [title]="uploadRecord.company?.company_name">
+          {{uploadRecord.company?.company_name|zMaxLength:20}}
+        </td>
+        <td [title]="uploadRecord.platform?.platform_name">
+          {{uploadRecord.platform?.platform_name|zMaxLength:20}}
+        </td>
+        <td>{{uploadRecord.upload_type|uploadContentType}}</td>
+        <td>{{uploadRecord.created_time*1000 | date:"y-MM-dd HH:mm:ss"}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && uploadRecordList.length === 0"></app-no-data-page>
+    <app-pagination
+      [currentPage]="searchAssistant.currentPage"
+      [pageCount]="searchAssistant.pageList.length"
+      (pageSelected)="searchAssistant.pageSelected($event)"
+    ></app-pagination>
+  </div>
+</div>

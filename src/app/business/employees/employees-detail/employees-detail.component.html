@@ -1,0 +1,62 @@
+<div class="header">
+  <app-crumb [level1Name]="'员工管理'" [level1RelativePath]="'../../'" [level2Name]="'查看详情'"></app-crumb>
+  <div class="switch-btn-group">
+    <button class="switch-btn" [routerLink]="['../../edit/'+ username]" [queryParams]="{from:'detail'}">编辑</button>
+  </div>
+</div>
+<div class="content-flow">
+  <div class="table-detail-container">
+    <table class="table">
+      <tr>
+        <td class="active td-border-right td-left">账号：</td>
+        <td class="td-border-right">
+          {{user.username|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">姓名：</td>
+        <td class="td-border-right">
+          {{user.realname|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">联系方式：</td>
+        <td class="td-border-right">
+          {{user.telephone|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">邮箱：</td>
+        <td class="td-border-right">
+          {{user.email|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">权限：</td>
+        <td class="td-border-right">
+          <ng-container *ngFor="let permission of permissionList;">
+            <span class="table-permission" *ngIf="permission.isChecked">{{permission.source.chinese_name}}</span>
+          </ng-container>
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">部门：</td>
+        <td class="td-border-right">
+          {{user.department|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">备注：</td>
+        <td class="td-border-right">
+          {{user.remarks|zPlaceholder}}
+        </td>
+      </tr>
+      <tr>
+        <td class="active td-border-right">添加时间：</td>
+        <td class="td-border-right">
+          {{user.created_time*1000|date:"y-MM-dd HH:mm:ss"}}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

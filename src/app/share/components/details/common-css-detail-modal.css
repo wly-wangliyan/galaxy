@@ -1,0 +1,94 @@
+.detail-modal-dialog {
+  width: 550px !important;
+}
+
+.detail-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  display: none;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  background: rgba(0, 0, 0, .5);
+  overflow-y: auto;
+}
+
+.right-float {
+  float: right;
+  margin-right: 10px;
+}
+
+.right-float > div {
+  float: left;
+  margin-right: 5px
+}
+
+.viewDetail label {
+  width: 135px
+}
+
+button, button:active, button:hover {
+  outline: none;
+  border: none;
+}
+
+.header > span > label {
+  outline: none;
+}
+
+.modal-body-table {
+  border: 1px solid #e8e8e8;
+  overflow: hidden;
+  margin-top: 10px;
+  /*line-height: 44px;*/
+}
+
+.modal-body-table span {
+  margin: 0;
+  color: #666;
+  font-weight: normal;
+}
+
+.modal-body-table > div {
+  min-height: 44px;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.modal-body-table > div:last-child {
+  border-bottom: none;
+}
+
+.modal-body-table > div > div:first-child {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-right: 1px solid #e8e8e8;
+  background: #FAFBFE;
+  padding-right: 20px;
+  position: relative;
+}
+
+.modal-body-table > div > div:first-child > span {
+  color: #333;
+  position: absolute;
+  top: 12px;
+  right: 20px;
+}
+
+.modal-body-table > div > div:last-child {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 30px;
+}
+
+.modal-body-table > div > div:last-child > span {
+  margin-left: 5px;
+  word-break: break-all;
+}

@@ -1,0 +1,93 @@
+@border-color: #10bae3;
+@border-width: 10px;
+@border-sm-width: 5px;
+@border-lg-color: #10bae3;
+
+.full-border {
+  border: 1px solid @border-color;
+  position: relative;
+}
+
+.triangle-bg {
+  background: rgba(9, 21, 54, 0.7);
+}
+
+.triangle-radius {
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.triangle-border {
+  border-style: solid;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.triangle-border-nw {
+  &:extend(.triangle-border);
+  border-width: @border-width @border-width 0 0;
+  border-color: @border-lg-color transparent transparent transparent;
+  top: 0;
+  left: 0;
+}
+
+.triangle-border-ne {
+  &:extend(.triangle-border);
+  border-width: @border-width 0 0 @border-width;
+  border-color: @border-lg-color transparent transparent transparent;
+  top: 0;
+  right: 0;
+}
+
+.triangle-border-se {
+  &:extend(.triangle-border);
+  border-width: @border-width @border-width 0 0;
+  border-color: transparent @border-lg-color transparent transparent;
+  bottom: 0;
+  right: 0;
+}
+
+.triangle-border-sw {
+  &:extend(.triangle-border);
+  border-width: 0 @border-width @border-width 0;
+  border-color: transparent transparent @border-lg-color transparent;
+  bottom: 0;
+  left: 0;
+}
+
+.triangle-border-sm-nw {
+  &:extend(.triangle-border);
+  border-width: @border-sm-width @border-sm-width 0 0;
+  border-color: @border-color transparent transparent transparent;
+  top: 0;
+  left: 0;
+}
+
+.triangle-border-sm-ne {
+  &:extend(.triangle-border);
+  border-width: @border-sm-width 0 0 @border-sm-width;
+  border-color: @border-color transparent transparent transparent;
+  top: 0;
+  right: 0;
+}
+
+.triangle-border-sm-se {
+  &:extend(.triangle-border);
+  border-width: @border-sm-width @border-sm-width 0 0;
+  border-color: transparent @border-color transparent transparent;
+  bottom: 0;
+  right: 0;
+}
+
+.triangle-border-sm-sw {
+  &:extend(.triangle-border);
+  border-width: 0 @border-sm-width @border-sm-width 0;
+  border-color: transparent transparent @border-color transparent;
+  bottom: 0;
+  left: 0;
+}
+
+.full-border-superlg {
+  border: 2px solid @border-color;
+}

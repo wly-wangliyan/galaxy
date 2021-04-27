@@ -1,0 +1,47 @@
+/*提示模态框*/
+.modal {
+  background: transparent;
+  z-index: 1200;
+  overflow: hidden;
+  position: fixed;
+  padding-left: 0px !important;
+}
+
+.modal-dialog {
+  width: 370px;
+  margin: 10% auto;
+}
+
+.modal-content {
+  height: 100%;
+  box-shadow: none;
+  border: 5px solid rgba(0, 0, 0, .2);
+}
+.modal-body {
+  text-align: center;
+  padding: 0
+}
+
+@-webkit-keyframes fade-in { /*针对webkit内核*/
+  0% {
+    opacity: 0;
+  }
+  7.5% {
+    opacity: 0.5;
+  }
+  10% {
+    opacity: 1;
+  }
+}
+
+.modal-warning-icon {
+  width: 55px;
+  height: 55px;
+  background: url('../../../../../assets/images/icon_group1.png') 140px 70px;
+  margin: 10px auto;
+}
+
+.form-horizontal {
+  margin: auto;
+  width: auto;
+}

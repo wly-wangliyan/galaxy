@@ -1,0 +1,65 @@
+.table-content {
+  text-align: left;
+  margin-top: 20px;
+  //border: 1px solid #1995DE;
+
+  .table-header {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #99bff3;
+    display: flex;
+    border-bottom: 2px solid rgba(63, 194, 255, 0.4);
+    border-top: 2px solid rgba(63, 194, 255, 0.4);
+  }
+
+  .table-header > div:first-child,
+  .scroll-box-item > div:first-child {
+    width: 325px;
+  }
+
+  .table-header > div:nth-child(2),
+  .scroll-box-item > div:nth-child(2) {
+    width: 120px;
+  }
+
+  .table-header > div:last-child,
+  .scroll-box-item > div:last-child {
+    width: 95px;
+  }
+
+  .scroll-box {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    cursor: pointer;
+    color: #99BFF3;
+    font-size: 18px;
+    //border-top: none;
+    font-weight: bold;
+    margin-top: 12px;
+  }
+
+  .scroll-box-item {
+    flex: 1;
+    justify-content: stretch;
+    height: 52px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    //border: 0.1px solid red;
+    background-color: rgba(63, 194, 255, 0.1);
+    margin-bottom: 8px;
+  }
+
+  //.scroll-box-item:hover {
+  //  background: rgba(255, 255, 255, 0.1) !important;
+  //}
+
+  .scroll-box-item > div {
+    text-align: left;
+    height: 52px;
+    line-height: 52px;
+  }
+}

@@ -1,0 +1,7 @@
+<div class="full-container" [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+  <app-full-title [title]="'出入场时间分布'" [globalSize]="sourceSize"></app-full-title>
+  <div class="chart-item-content" [class.chart-item-content-sm]="sourceSize==='sm'">
+    <div echarts class="chart-flow" [options]="chartOptions" (chartInit)="onChartInit($event)">
+    </div>
+  </div>
+</div>

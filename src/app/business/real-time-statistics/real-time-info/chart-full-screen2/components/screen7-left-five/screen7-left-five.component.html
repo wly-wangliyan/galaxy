@@ -1,0 +1,10 @@
+<app-full-screen-item zTitle="车辆类型" headerBgType="2">
+  <div class="chart-item-content">
+    <div class="bg-container">
+      <i class="bg-circle"></i>
+      <i class="icon-car"></i>
+    </div>
+    <div echarts class="chart-flow" [options]="chartOptions" (chartInit)="onChartInit($event)">
+    </div>
+  </div>
+</app-full-screen-item>

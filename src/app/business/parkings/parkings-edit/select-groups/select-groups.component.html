@@ -1,0 +1,31 @@
+<div class="content-flow">
+  <div class="table-detail-container">
+    <form class="form-horizontal z-form-horizontal" (submit)="onAddSelectGroupsFormSubmit()"
+          #createGroupsInfoForm="ngForm" autocomplete="off">
+      <div class="form-group">
+        <div class="scroll-container" (scroll)="onScrollContainerScroll($event)">
+          <li *ngFor="let group of groupsList">
+            <app-beautify-checkbox [name]="group.parking_group_name"
+                                   [extData]="group"
+                                   [isDisabled]="isEdit"
+                                   [checked]="temSelectedGroupArr.indexOf(group.parking_group_id)>=0"
+                                   (checkChange)="selectedGroups($event)"></app-beautify-checkbox>
+          </li>
+        </div>
+      </div>
+      <div class="col-sm-9 form-footer" *ngIf="isEdit && groupsList.length>0">
+        <button type="submit" class="btn btn-primary" (click)="isEdit=!isEdit">
+          编辑
+        </button>
+      </div>
+      <div class="col-sm-9 form-footer" *ngIf="!isEdit">
+        <button type="button" class="btn btn-inverse" (click)="requestGroupsData(true)">
+          取消
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="!createGroupsInfoForm.form.valid">
+          保存
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

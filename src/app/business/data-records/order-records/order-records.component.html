@@ -1,0 +1,110 @@
+<div class="header">
+  <app-crumb [level1Name]="'数据记录'" [level2Name]="'订单记录'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form" autocomplete="off">
+      <div class="form-group">
+        <span>停车场：</span>
+        <input class="form-control" [(ngModel)]="searchParams.parking_name" name="parking_name" placeholder="请输入停车场名称"
+               appIgnoreSpace autocomplete="off"
+               (keyup)="searchAssistant.submitSearch(true,$event)"/>
+      </div>
+      <div class="form-group">
+        <span>车牌号：</span>
+        <input class="form-control" [(ngModel)]="searchParams.car_id" name="car_id" placeholder="请输入车牌号" appIgnoreSpace autocomplete="off"
+               (keyup)="searchAssistant.submitSearch(true,$event)"/>
+      </div>
+      <div class="form-group">
+        <span>用户类型：</span>
+        <select class="form-control" [(ngModel)]="searchParams.user_types" name="user_types">
+          <option value="">全部</option>
+          <option *ngFor="let userType of defaultUserType" [value]="userType">
+            {{userType | userTypePipe}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <span>支付方式：</span>
+        <select class="form-control" [(ngModel)]="searchParams.paid_type" name="paid_type">
+          <option value="">全部</option>
+          <option *ngFor="let paidType of defaultPaidType" [value]="paidType">
+            {{paidType | paidTypePipe}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <span>入场时间：</span>
+        <app-date-time-ymdhms [(ngModel)]="entrance_start_date" name="entrance_start_date"></app-date-time-ymdhms>
+        <span class="form-separator">-</span>
+        <app-date-time-ymdhms [(ngModel)]="entrance_end_date"
+                              name="entrance_end_date"></app-date-time-ymdhms>
+      </div>
+      <div class="form-group">
+        <span>收费时间：</span>
+        <app-date-time-ymdhms [(ngModel)]="paid_start_date" name="paid_start_date"></app-date-time-ymdhms>
+        <span class="form-separator">-</span>
+        <app-date-time-ymdhms [(ngModel)]="paid_end_date" name="paid_end_date"></app-date-time-ymdhms>
+      </div>
+      <div class="form-group">
+        <span>优惠：</span>
+        <select class="form-control" [(ngModel)]="searchParams.has_discount" name="has_discount">
+          <option value="">全部</option>
+          <option value="true">使用</option>
+          <option value="false">未使用</option>
+        </select>
+        <button type="button" (click)="searchAssistant.submitSearch(false)">查询</button>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>停车场</th>
+        <th>车牌号</th>
+        <th>用户类型</th>
+        <th>入场时间</th>
+        <th>计费时长</th>
+        <th>优惠</th>
+        <th>应收金额(元)</th>
+        <th>实收金额(元)</th>
+        <th>支付方式</th>
+        <th>收费时间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let orderRecord of orderRecordList;let index=index" (click)="onSelected(orderRecord)"
+          [ngClass]="{tableActive:orderRecord.fee_id==selectOrderRecord.fee_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td [title]="orderRecord.parking?.parking_name">{{orderRecord.parking?.parking_name | zMaxLength:20}}</td>
+        <td>
+          <span *ngIf="orderRecord.car_id.startsWith('无')">无牌车</span>
+          <span *ngIf="!orderRecord.car_id.startsWith('无')">{{orderRecord.car_id}}</span>
+        </td>
+        <td [title]="orderRecord.user_types | userTypePipe">{{orderRecord.user_types | userTypePipe | zMaxLength}}
+        </td>
+        <td>{{orderRecord.entry_time*1000 | date:"y-MM-dd HH:mm:ss"}}</td>
+        <td>{{orderRecord.start_time | zDuration:orderRecord.end_time}}</td>
+        <td>
+        <span *ngFor="let discount of orderRecord.discounts;let discountIndex = index">
+          {{(discount.type === 1 && discount.type !== 2) ? (discount.value*60 | zFormatDuration) : (discount.value * 0.01 + '元')}}
+          {{(discount.type === 3) ? (discount.value + '%') : ''}}
+          <span
+            *ngIf="(orderRecord.discounts.length > 1) && (discountIndex !== orderRecord.discounts.length - 1)">,</span>
+        </span>
+        </td>
+        <td>{{orderRecord.receivable_amount_VO}}</td>
+        <td>{{orderRecord.received_amount_VO}}</td>
+        <td>{{orderRecord.paid_type | paidTypePipe}}</td>
+        <td>{{orderRecord.received_time*1000 | date:"y-MM-dd HH:mm:ss"}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && orderRecordList.length === 0"></app-no-data-page>
+    <app-pagination
+      [currentPage]="searchAssistant.currentPage"
+      [pageCount]="searchAssistant.pageList.length"
+      (pageSelected)="searchAssistant.pageSelected($event)"
+    ></app-pagination>
+  </div>
+</div>

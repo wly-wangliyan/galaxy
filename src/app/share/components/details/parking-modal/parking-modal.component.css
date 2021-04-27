@@ -1,0 +1,19 @@
+/* 打开地图组件按钮 */
+.btn-select-map {
+  line-height: 34px;
+  margin-left: 10px;
+  width: 104px;
+  height: 34px;
+  background: #45c8dc;
+  border-radius: 4px;
+}
+
+.btn-select-map:hover, .btn-select-map:active, .btn-select-map:focus {
+  background-color: #3baabb;
+  color: #fff;
+}
+
+.parking-address {
+  display: inline-block;
+  max-width: 300px;
+}

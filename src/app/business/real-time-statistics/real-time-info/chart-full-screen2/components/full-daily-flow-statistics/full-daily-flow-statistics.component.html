@@ -1,0 +1,7 @@
+<div class="full-container" [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+  <app-full-title2 [title]="fullTitle" [globalSize]="'sm'"></app-full-title2>
+  <div class="chart-item-content chart-item-content-sm">
+    <div echarts class="chart-flow" [options]="chartOptions" (chartInit)="onChartInit($event)">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,239 @@
+<div class="list-container">
+  <form class="search-form" onkeydown="if(event.keyCode===13){return false;}" >
+    <div class="form-group">
+      <span>名称：</span>
+      <input class="form-control" [(ngModel)]="searchParams.parking_name" name="parking_name" placeholder="请输入停车场名称"
+             (keyup)="searchAssistant.submitSearch(true,$event)"/>
+    </div>
+    <div class="form-group">
+      <span>停车场类型：</span>
+      <select class="form-control" [(ngModel)]="searchParams.area_type" name="area_type"
+              (change)="searchAssistant.submitSearch(true,$event)">
+        <option value="">请选择类型</option>
+        <option value="1">路内停车场</option>
+        <option value="2">路外停车场</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <span>状态：</span>
+      <select class="form-control" [(ngModel)]="searchParams.status" name="status"
+              (change)="searchAssistant.submitSearch(true,$event)">
+        <option value="">全部</option>
+        <option value="1">空闲</option>
+        <option value="2">宽松</option>
+        <option value="3">紧张</option>
+      </select>
+    </div>
+    <!--<div class="form-group">-->
+      <!--<span>分组：</span>-->
+      <!--<select class="form-control" [(ngModel)]="searchParams.parking_group_id" name="parking_group_id"-->
+              <!--(change)="searchAssistant.submitSearch(true,$event)">-->
+        <!--<option value="">请选择分组</option>-->
+        <!--<option *ngFor="let group of groupList" [value]="group.parking_group_id">{{group.parking_group_name}}</option>-->
+      <!--</select>-->
+    <!--</div>-->
+    <div class="form-group">
+      <span>分类：</span>
+      <select class="form-control" name="parking_kind" [(ngModel)]="searchParams.parking_kind"
+              (change)="searchAssistant.submitSearch(true,$event)">
+        <option value="">请选择分类</option>
+        <option value="1">普通类型停车场</option>
+        <option value="3">服务类型停车场</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <span>管理模式：</span>
+      <select class="form-control" name="operate_type" [(ngModel)]="searchParams.operate_type"
+              (change)="searchAssistant.submitSearch(true,$event)">
+        <option value="">请选择管理模式</option>
+        <option value="1">非封闭</option>
+        <option value="2">封闭</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <span>类别：</span>
+      <select class="form-control" name="parking_category" [(ngModel)]="searchParams.parking_category"
+              (change)="searchAssistant.submitSearch(true,$event)">
+        <option value="">请选择类别</option>
+        <option value="3">地面停车场</option>
+        <option value="2">地下停车场</option>
+        <option value="6">立体停车场</option>
+        <option value="1">停车楼</option>
+        <option value="8">地面+地下停车场</option>
+        <option value="9">地面+停车楼</option>
+        <option value="10">地面+地下+停车楼</option>
+
+      </select>
+    </div>
+
+    <div class="form-group">
+      <span>开放类型：</span>
+      <select class="form-control" name="opening_type" [(ngModel)]="searchParams.opening_type"
+              (change)="searchAssistant.submitSearch(true,$event)">
+        <option value="">请选择开放类型</option>
+        <option value="1">完全对外开放</option>
+        <option value="2">部分对外开放</option>
+        <option value="4">共享对外开放</option>
+        <option value="5">不对外开放</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <span>物业公司：</span>
+      <input type="text" class="form-control" name="company_name" placeholder="请输入物业公司"
+             [(ngModel)]="searchParams.company_name"
+             (keyup)="searchAssistant.submitSearch(true,$event)">
+    </div>
+
+    <div class="form-group">
+      <span>管理系统：</span>
+      <input type="text" class="form-control" name="platform_name" placeholder="请输入管理系统"
+             [(ngModel)]="searchParams.platform_name"
+             (keyup)="searchAssistant.submitSearch(true,$event)">
+    </div>
+
+    <div class="form-group">
+      <button (click)="onParkingStateExportClick()" class="parking-btn" #export>导出</button>
+      <button routerLink="../parking-state-simple" class="parking-btn">切换简版</button>
+    </div>
+  </form>
+  <div class="table-container">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>停车场名称</th>
+        <th>停车场类型</th>
+        <th>
+          <div>
+            <span class="btn-icon-sort-container"
+                  (click)="onChangeOrderBtnClick(OrderItemType.total_num, currentOrderType)">
+              车位总数
+              <div class="btn-icon-sort" [class.btn-icon-disabled]="currentOrderItem !== OrderItemType.total_num"
+                   [class.btn-icon-up]="(currentOrderItem === OrderItemType.total_num) && (currentOrderType === OrderByType.order)"
+                   [class.btn-icon-down]="(currentOrderItem === OrderItemType.total_num) && (currentOrderType === OrderByType.reverse_order)"></div>
+            </span>
+          </div>
+        </th>
+        <th>
+          <div>
+            <span class="btn-icon-sort-container"
+                  (click)="onChangeOrderBtnClick(OrderItemType.filling_rate, currentOrderType)">
+              当前填充率
+              <div class="btn-icon-sort" [class.btn-icon-disabled]="currentOrderItem !== OrderItemType.filling_rate"
+                   [class.btn-icon-up]="(currentOrderItem === OrderItemType.filling_rate) && (currentOrderType === OrderByType.order)"
+                   [class.btn-icon-down]="(currentOrderItem === OrderItemType.filling_rate) && (currentOrderType === OrderByType.reverse_order)"></div>
+              </span>
+          </div>
+        </th>
+        <th>
+          <div>
+            <span class="btn-icon-sort-container"
+                  (click)="onChangeOrderBtnClick(OrderItemType.total_tmp_num, currentOrderType)">
+              临时车位总数
+              <div class="btn-icon-sort" [class.btn-icon-disabled]="currentOrderItem !== OrderItemType.total_tmp_num"
+                   [class.btn-icon-up]="(currentOrderItem === OrderItemType.total_tmp_num) && (currentOrderType === OrderByType.order)"
+                   [class.btn-icon-down]="(currentOrderItem === OrderItemType.total_tmp_num) && (currentOrderType === OrderByType.reverse_order)"></div>
+            </span>
+          </div>
+        </th>
+        <th>
+          <div>
+            <span class="btn-icon-sort-container"
+                  (click)="onChangeOrderBtnClick(OrderItemType.status, currentOrderType)">
+              临时车位状态
+              <div class="btn-icon-sort" [class.btn-icon-disabled]="currentOrderItem !== OrderItemType.status"
+                   [class.btn-icon-up]="(currentOrderItem === OrderItemType.status) && (currentOrderType === OrderByType.order)"
+                   [class.btn-icon-down]="(currentOrderItem === OrderItemType.status) && (currentOrderType === OrderByType.reverse_order)"></div>
+            </span>
+          </div>
+        </th>
+        <th>
+          今日流量
+        </th>
+        <th>
+          首次运营日期
+        </th>
+        <th>
+          停车场分类
+        </th>
+        <th>
+          管理模式
+        </th>
+        <th>
+          停车场类别
+        </th>
+        <th>
+          营业时间
+        </th>
+        <th>
+          备案车位数
+        </th>
+        <th>
+          开放类型
+        </th>
+        <th>
+          收费方式
+        </th>
+        <th>
+          物业公司
+        </th>
+        <th>
+          管理系统
+        </th>
+        <th>
+          停车场地址
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of dataList;let index=index">
+        <td class="special-text-index">{{((searchAssistant.currentPage - 1) * searchAssistant.pageSize + index + 1)|zeroFill}}</td>
+        <td [title]="data.parking?.parking_name +'\n上线日期：'+data.parking?.firstOperationTime">
+        <span *ngIf="data.run_status===2" class="parking-status"
+              [ngClass]="{'parking-status-break': data.run_status===2}"></span>
+          {{data.parking?.parking_name|zMaxLength:25}}
+        </td>
+        <td>{{data.parking?.area_type|areaType}}</td>
+        <td><span *ngIf="data.run_status===2">--</span>
+          <span *ngIf="data.run_status!==2">{{data.tmp_num + data.other_num}}/{{data.total_num}}</span></td>
+        <td>{{data.run_status === 2 ? '--' : data.filling_rate}}</td>
+        <td>
+          <span *ngIf="data.run_status===2">--</span>
+          <span *ngIf="data.run_status!==2">{{data.tmp_num}}/{{data.total_tmp_num}}</span></td>
+        <td [ngStyle]="{color: data.status|parkingState:true}">
+          {{data.run_status === 2 ? '--' : data.status|parkingState}}
+        </td>
+        <td>{{data.run_status === 2 ? '--' : data.flow + '辆'}}</td>
+        <td>{{data.parking.first_operate_time * 1000 | date:'yyyy-MM-dd'}}</td>
+        <td>{{data.parking.parking_kind === 1 ? '普通停类型车场' : '服务类型停车场'}}</td>
+        <td>{{data.parking.operate_type === 2 ? '封闭' : data.parking.operate_type === 1 ? '非封闭' : '未知'}}</td>
+        <td>
+          {{data.parking?.parking_category|parkingType}}
+        </td>
+        <td>{{data.parking.operation_start_time}}--{{data.parking.operation_end_time}}</td>
+        <td>{{data.parking_total}}</td>
+        <td>
+          {{data.parking?.opening_type|openType}}
+        </td>
+        <td [title]="data.parking?.pay_type|payType">
+          {{data.parking?.pay_type|payType|zMaxLength:15}}
+        </td>
+        <td [title]="data.parking.company_name">{{data.parking.company_name|zMaxLength:15}}</td>
+        <td [title]="data.parking.platform_name">{{data.parking.platform_name|zMaxLength:15}}</td>
+        <td [title]="data.parking.address">{{data.parking.address|zMaxLength:15}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-no-data-page *ngIf="isLoadComplete && dataList.length === 0"></app-no-data-page>
+</div>
+<div class="pagination-container">
+  <app-pagination
+    [currentPage]="searchAssistant.currentPage"
+    [pageCount]="searchAssistant.pageList.length"
+    (pageSelected)="searchAssistant.pageSelected($event)"
+  ></app-pagination>
+</div>

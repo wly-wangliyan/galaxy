@@ -1,0 +1,62 @@
+<div class="fs-container">
+  <i class="fs-bg-line"></i>
+  <i class="fs-bg-logo">
+    <b class="fs-logo"></b>
+  </i>
+  <div class="fs-header">
+  </div>
+  <div class="fs-body">
+    <div class="fs-left-side">
+      <div class="fs-both-side-item">
+        <app-full-border>
+          <app-full-parking-utilization-rate
+            [sourceHeight]="'310'" [sourceWidth]="'445'"></app-full-parking-utilization-rate>
+        </app-full-border>
+      </div>
+      <div class="fs-both-side-item">
+        <app-full-border>
+          <app-full-flow-statistics [sourceHeight]="'310'" [sourceWidth]="'445'"
+                                    [entryFlowList]="entryFlowList"></app-full-flow-statistics>
+        </app-full-border>
+      </div>
+      <div class="fs-both-side-item">
+        <app-full-border>
+          <app-full-flow-distribution-curve [sourceHeight]="'310'" [sourceWidth]="'445'"
+                                            (entryFlowComplete)="entryFlowList=$event"
+          ></app-full-flow-distribution-curve>
+        </app-full-border>
+      </div>
+    </div>
+    <div class="fs-middle-side">
+      <div class="fs-logo-item">
+        <div class="fs-logo-icon"></div>
+      </div>
+      <div class="fs-map-item">
+        <app-full-border [arrowSize]="'lg'" [arrowRadius]="true">
+          <app-full-map [sourceHeight]="'600'" [sourceWidth]="'930'"></app-full-map>
+        </app-full-border>
+      </div>
+      <div class="fs-table-item">
+        <app-full-parking-flow-table></app-full-parking-flow-table>
+      </div>
+    </div>
+    <div class="fs-right-side">
+      <div class="fs-both-side-item">
+        <app-full-border>
+          <app-full-online-state
+            [sourceHeight]="'310'" [sourceWidth]="'445'"></app-full-online-state>
+        </app-full-border>
+      </div>
+      <div class="fs-both-side-item">
+        <app-full-border>
+          <app-full-user-type-ratio [sourceHeight]="'310'" [sourceWidth]="'445'"></app-full-user-type-ratio>
+        </app-full-border>
+      </div>
+      <div class="fs-both-side-item">
+        <app-full-border>
+          <app-full-monitor [sourceHeight]="'310'" [sourceWidth]="'445'"></app-full-monitor>
+        </app-full-border>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+.examine-container {
+  width: 1100px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.examine-container .examine-tab {
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.examine-container .examine-image {
+  width: 530px;
+  height: 530px;
+  line-height: 498px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.examine-container .examine-image > img {
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.examine-container .examine-image-btn {
+  margin-top: 10px;
+}
+
+.examine-container .examine-image-btn > b {
+  float: right;
+  height: 30px;
+  background: #1764b2;
+  line-height: 30px;
+  margin: 0 5px;
+  padding: 0 10px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.examine-container .examine-image-btn > .image-switch {
+  width: 30px;
+}
+
+.examine-container .examine-image-btn > .image-switch-right {
+  background: url(../../../assets/images/switching_right.png);
+  background-size: contain;
+}
+
+.examine-container .examine-image-btn > .image-switch-right:hover, .examine-container .examine-image-btn > .image-switch-right:active {
+  background: url(../../../assets/images/switching_right_push.png);
+  background-size: contain;
+}
+
+.examine-container .examine-image-btn > .image-switch-left {
+  background: url(../../../assets/images/switching_left.png);
+  background-size: contain;
+}
+
+.examine-container .examine-image-btn > .image-switch-left:hover, .examine-container .examine-image-btn > .image-switch-left:active {
+  background: url(../../../assets/images/switching_left_push.png);
+  background-size: contain;
+}
+
+.examine-table > tbody > tr > td:nth-of-type(1) {
+  border-right: 1px solid #ddd;
+  width: 180px;
+}
+
+.examine-table > tbody > tr > td:nth-of-type(2) {
+  text-align: left;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.btn-examine-wrap > button {
+  float: right;
+  margin-right: -7px;
+}
+
+/* 审核模态框 */
+#parkingBeianExamineModal > .modal-dialog, #platformBeianExamineModal > .modal-dialog {
+  width: 450px;
+}
+
+.examine-radio-wrap {
+  padding-top: 7px;
+}
+
+.examine-radio-wrap > label {
+  color: #363f5e;
+  margin-right: 60px;
+  font-weight: normal;
+}
+
+b.disabled {
+  cursor: not-allowed !important;
+}
+
+.table > tbody > tr > td {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.table > tbody > tr > td.td-timestamp{
+  word-break: keep-all;
+}
+
+.th-4 {
+  width: 4%;
+}
+
+.th-6 {
+  width: 6%;
+}
+
+.th-10 {
+  width: 10%;
+}
+
+.th-15 {
+  width: 15%;
+}
+
+.th-20 {
+  max-width: 20%;
+  min-width: 10%;
+}
+
+.th-30 {
+  max-width: 30%;
+  min-width: 10%;
+}
+

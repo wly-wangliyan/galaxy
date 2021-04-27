@@ -1,0 +1,12 @@
+.chart-item-content {
+  height: 235px;
+  margin: 0 15px 15px 15px;
+}
+
+.chart-item-content .chart-flow {
+  height: 235px;
+}
+
+.chart-item-content-sm, .chart-item-content-sm .chart-flow{
+  height: 200px;
+}

@@ -1,0 +1,58 @@
+<div class="header">
+  <app-crumb [level1Name]="'基础管理'" [level2Name]="'停车场'" [level2RelativePath]="'../../../'"
+             [level3Name]="'分组管理'"></app-crumb>
+  <div class="switch-btn-group">
+    <button class="switch-btn" [routerLink]="['add']">添加分组</button>
+  </div>
+</div>
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form">
+      <div class="form-group">
+        <span>组名称：</span>
+        <input class="form-control" placeholder="请输入组名称" [(ngModel)]="searchParams.parking_group_name"
+               name="parking_group_name" (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>类型：</span>
+        <select class="form-control" [(ngModel)]="searchParams.parking_group_types" name="parking_group_types"
+                (change)="onStatusSelectChanged($event.target.value)">
+          <option value="">请选择类型</option>
+          <option *ngFor="let groupType of groupTypeList" [value]="groupType">{{groupType | groupType}}</option>
+        </select>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>组名称</th>
+        <th>组类型</th>
+        <th>更新时间</th>
+        <th style="width: 160px;">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let group of groupsList; let index=index" (click)="onSelect(group)"
+          [ngClass]="{tableActive: group.parking_group_id==currentSelectGroups.parking_group_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td>{{group.parking_group_name}}</td>
+        <td [title]="group.parking_group_types | groupType">{{(group.parking_group_types | groupType) |
+          zMaxLength:15}}
+        </td>
+        <td>{{group.updated_time*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td class="td-operation">
+          <button [title]="'查看详情'" class="icon-view" [routerLink]="['detail', group.parking_group_id]"></button>
+          <button [title]="'编辑'" class="icon-edit" [routerLink]="['edit',group.parking_group_id]"
+                  [queryParams]="{from:'list'}"></button>
+          <button [title]="'删除'" class="icon-delete" (click)="onDeleteItemClick(group)"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && groupsList.length === 0"></app-no-data-page>
+    <app-pagination [currentPage]="searchAssistant.currentPage"
+                    [pageCount]="searchAssistant.pageList.length"
+                    (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="number-container" [ngStyle]="{'height':sHeight + 'px',
+'width':sNumberWidth * numLength + 'px'}">
+  <div class="number-wrap" [ngStyle]="{'justify-content':sJustifyContent}">
+    <ng-container *ngFor="let num of numbers;trackBy:generateID">
+      <app-magic-number-item [sNumber]='num' [sWidth]='sNumberWidth' [sHeight]='sHeight' [sFontSize]='sFontSize'>
+      </app-magic-number-item>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<form class="search-form">
+  <div class="form-group">
+    <span>物业公司名称：</span>
+    <input class="form-control" placeholder="请输入公司名称" name="company_name" [(ngModel)]="searchParams.company_name"
+           (keyup)="searchAssistant.submitSearch(true, $event)"/>
+  </div>
+  <div class="form-group">
+    <span>停车场名称：</span>
+    <input class="form-control" placeholder="请输入停车场名称" name="parking_name" [(ngModel)]="searchParams.parking_name"
+           (keyup)="searchAssistant.submitSearch(true, $event)"/>
+  </div>
+  <div class="form-group">
+    <span>厂商名称：</span>
+    <input class="form-control" placeholder="请输入厂商名称" name="manufacturer_name"
+           [(ngModel)]="searchParams.manufacturer_name"
+           (keyup)="searchAssistant.submitSearch(true, $event)"/>
+  </div>
+  <div class="form-group">
+    <span>系统名称：</span>
+    <input class="form-control" placeholder="请输入系统名称" name="platform_name" [(ngModel)]="searchParams.platform_name"
+           (keyup)="searchAssistant.submitSearch(true, $event)"/>
+  </div>
+
+  <div class="form-group" *ngIf="examineType===0">
+    <span>提交时间：</span>
+    <app-date-time class="start-date" name="startDate" [(ngModel)]="startDate"
+                   [timepickerOptions]="false"
+                   [datepickerOptions]="datePickerDefaultOptions"></app-date-time>
+    <span class="form-separator">-</span>
+    <app-date-time class="end-date" name="endDate" [(ngModel)]="endDate"
+                   [timepickerOptions]="false"
+                   [datepickerOptions]="datePickerDefaultOptions"></app-date-time>
+    <button type="button" (click)="searchAssistant.submitSearch(false)">查询</button>
+  </div>
+
+  <div class="form-group" *ngIf="examineType>0">
+    <span>审核时间：</span>
+    <app-date-time class="start-date" name="startDate" [(ngModel)]="reviewedStartDate"
+                   [timepickerOptions]="false"
+                   [datepickerOptions]="datePickerDefaultOptions"></app-date-time>
+    <span class="form-separator">-</span>
+    <app-date-time class="end-date" name="endDate" [(ngModel)]="reviewedEndDate"
+                   [timepickerOptions]="false"
+                   [datepickerOptions]="datePickerDefaultOptions"></app-date-time>
+  </div>
+  <div class="form-group" *ngIf="examineType>0">
+    <span>审核人：</span>
+    <input class="form-control" placeholder="请输入审核人称" name="realname" [(ngModel)]="searchParams.realname"
+           (keyup)="searchAssistant.submitSearch(true, $event)"/>
+    <button type="button" (click)="searchAssistant.submitSearch(false)">查询</button>
+  </div>
+</form>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th class="th-4">序号</th>
+    <th class="th-30">物业公司名称</th>
+    <th class="th-30">停车场名称</th>
+    <th class="th-15">备案有效期</th>
+    <th class="th-30">停车管理系统-厂商</th>
+    <th class="th-10" *ngIf="examineType===0">提交时间</th>
+    <th class="th-10" *ngIf="examineType>0">审核时间</th>
+    <th class="th-10" *ngIf="examineType>0">审核人</th>
+    <th class="th-6">操作</th>
+  </tr>
+  </thead>
+  <tbody *ngIf="parkingBeianList">
+  <tr *ngFor="let parking of parkingBeianList; let index=index" (click)="onSelect(parking)"
+      [ngClass]="{tableActive: parking.parking_beian_id==selectParking.parking_beian_id}">
+    <td>{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+
+    <td *ngIf="parking.companyName" [title]="parking.companyName"
+        (click)="companyDetailModal.showDetail(parking.companyId)"><span
+      class="link-text">{{parking.companyName}}</span></td>
+    <td *ngIf="!parking.companyName" [title]="parking.companyName">--</td>
+
+    <td [title]="parking.parking_name">{{parking.parking_name | zPlaceholder}}</td>
+    <td *ngIf="parking.start_time&&parking.end_time">{{(parking.start_time*1000|
+      date:"y-MM-dd")+'至'+((parking.end_time-1)*1000| date:"y-MM-dd")}}
+    </td>
+    <td *ngIf="!(parking.start_time&&parking.end_time)">--</td>
+    <!-- 管理系统-厂商 -->
+    <td *ngIf="parking.manufacturerId" [title]="parking.platformFullName"
+        (click)="viewManufacturerDetailModal.showDetail(parking.manufacturerId)">
+      <span class="link-text">{{parking.platformFullName|zPlaceholder}}</span>
+    </td>
+    <td *ngIf="!parking.manufacturerId" [title]="parking.platformFullName">{{parking.platformFullName|zPlaceholder}}
+    </td>
+
+    <td class="td-timestamp" *ngIf="examineType===0">{{parking.created_time*1000| date:"y-MM-dd HH:mm:ss"}}</td>
+    <td class="td-timestamp" *ngIf="examineType>0">{{parking.reviewed_time*1000| date:"y-MM-dd HH:mm:ss"}}</td>
+    <td *ngIf="examineType>0">{{parking.user?.realname | zPlaceholder}}</td>
+    <td class="td-operation">
+      <button class="btn-operation icon-view" [title]="'查看'" *ngIf="examineType>0"
+              [routerLink]="['../',getExamineTypeStr(),'examine',parking.parking_beian_id]"></button>
+      <button class="btn-operation icon-examine" [title]="'审核'" *ngIf="examineType===0"
+              [routerLink]="['../',getExamineTypeStr(),'examine',parking.parking_beian_id]"></button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<app-no-data-page *ngIf="isLoadComplete && parkingBeianList.length === 0"></app-no-data-page>
+<app-pagination [currentPage]="searchAssistant.currentPage" [pageCount]="searchAssistant.pageList.length"
+                (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+
+<app-company-modal #companyDetailModal></app-company-modal>
+
+<app-manufacturer-modal #viewManufacturerDetailModal></app-manufacturer-modal>

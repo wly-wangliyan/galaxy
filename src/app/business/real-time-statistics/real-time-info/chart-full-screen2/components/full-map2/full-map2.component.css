@@ -1,0 +1,114 @@
+.right-side-item {
+  position: absolute;
+  right: 17px;
+  bottom: 19px;
+  width: 135px;
+  height: 194px;
+  padding: 10px;
+  overflow: hidden;
+  background: rgba(1,20,40,0.8);
+}
+
+.right-side-item > ul {
+  color: #fff;
+  font-size: 15px;
+}
+
+.right-side-item > ul > li {
+  height: 28px;
+  line-height: 28px;
+  margin-bottom: 2px;
+}
+
+.right-side-item > ul > li.parking-area-type {
+  padding-left: 28px;
+}
+
+.right-side-item > ul > li:nth-of-type(2) {
+  background: url('/assets/images/map/marker_loose_small.png') 4px 2px no-repeat;
+  -webkit-background-size: 20px;
+  background-size: 20px;
+}
+
+.right-side-item > ul > li:nth-of-type(3) {
+  background: url('/assets/images/map/inside_marker_loose_small.png') 4px 6px no-repeat;
+  -webkit-background-size: 20px;
+  background-size: 20px;
+}
+
+.right-side-item > ul > li > i {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin: 0 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  border-radius: 7px;
+}
+
+.right-side-item > ul > li:nth-of-type(4) > i {
+  background: #F14F4F;
+}
+
+.right-side-item > ul > li:nth-of-type(5) > i {
+  background: #F68704;
+}
+
+.right-side-item > ul > li:nth-of-type(6) > i {
+  background: #029E48;
+}
+
+.right-side-item > ul > li > span {
+  display: inline-block;
+  width: 54px;
+  height: 25px;
+  vertical-align: -6px;
+  margin: 0 13px 0 5px;
+  cursor: pointer;
+}
+
+.icon-traffic-off {
+  background: url('/assets/images/map/icon_off.png') no-repeat;
+}
+
+.icon-traffic-on {
+  background: url('/assets/images/map/icon_on.png') no-repeat;
+}
+
+.view-video-container {
+  width: 100%;
+  height: 283px;
+  padding-bottom: 15px;
+  display: flex;
+}
+
+.view-video-container > div {
+  flex: 1;
+  border: 1px solid red;
+}
+
+/*.modal-dialog {*/
+  /*width: 876px;*/
+  /*margin: calc(50vh - 184px) auto 0;*/
+/*}*/
+
+/*.modal-content {*/
+  /*border-radius: 0;*/
+/*}*/
+
+/*.modal-header, .modal-header .modal-title {*/
+  /*background: #07163C;*/
+  /*opacity: 0.8;*/
+  /*border: 0;*/
+  /*height: 70px;*/
+  /*line-height: 70px;*/
+/*}*/
+
+/*.modal-body {*/
+  /*background: #0D2361;*/
+  /*opacity: 0.7;*/
+/*}*/
+
+/*.view-video-container > div:nth-of-type(1) {*/
+  /*margin-right: 15px;*/
+/*}*/

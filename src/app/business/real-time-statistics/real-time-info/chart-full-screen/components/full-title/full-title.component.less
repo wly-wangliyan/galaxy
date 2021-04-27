@@ -1,0 +1,103 @@
+@color: #31fdff;
+@size: 8px;
+@line: @color 2px solid;
+
+@superlgSize: 16px;
+@superlgLine: @color 4px solid;
+
+.full-title {
+  font-size: 20px;
+  color: #01e0c0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-title-border {
+  padding: 6px 12px;
+  position: relative;
+}
+
+.border-nw {
+  width: @size;
+  height: @size;
+  border-left: @line;
+  border-top: @line;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.border-ne {
+  width: @size;
+  height: @size;
+  border-right: @line;
+  border-top: @line;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.border-sw {
+  width: @size;
+  height: @size;
+  border-left: @line;
+  border-bottom: @line;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.border-se {
+  width: @size;
+  height: @size;
+  border-right: @line;
+  border-bottom: @line;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+/* mini版 */
+.full-title-sm {
+  font-size: 16px;
+  height: 48px;
+}
+
+.full-title-superlg {
+  font-size: 32px;
+  height: 96px;
+}
+
+.full-title-superlg .full-title-border {
+  padding: 12px 24px;
+}
+
+.full-title-superlg {
+  .border-nw {
+    width: @superlgSize;
+    height: @superlgSize;
+    border-left: @superlgLine;
+    border-top: @superlgLine;
+  }
+  .border-ne {
+    width: @superlgSize;
+    height: @superlgSize;
+    border-right: @superlgLine;
+    border-top: @superlgLine;
+
+  }
+  .border-se {
+    width: @superlgSize;
+    height: @superlgSize;
+    border-right: @superlgLine;
+    border-bottom: @superlgLine;
+  }
+  .border-sw {
+    width: @superlgSize;
+    height: @superlgSize;
+    border-left: @superlgLine;
+    border-bottom: @superlgLine;
+  }
+}

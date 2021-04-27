@@ -1,0 +1,257 @@
+.full-map-container {
+  width: 100%;
+  height: 1440px;
+  position: relative;
+
+  & > .bg-full-screen-left {
+    width: 1400px;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: url(/assets/images/screen/bg_full_screen_left.png) no-repeat;
+    background-size: contain;
+    z-index: 2;
+  }
+
+  & > .bg-full-screen-right {
+    width: 1400px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url(/assets/images/screen/bg_full_screen_right.png) no-repeat;
+    background-size: contain;
+    z-index: 2;
+  }
+}
+
+#map-screen-container {
+  width: 100%;
+  height: 1440px;
+}
+
+.map-description {
+  position: absolute;
+  left: 2506px;
+  top: 1164px;
+  width: 124px;
+  height: 196px;
+  padding: 11px 12px;
+  background: rgba(63, 194, 255, 0.1);
+  border: 1px solid #3FC2FF;
+  box-shadow: 0 0 20px 0 rgba(66, 114, 224, 0.51);
+  border-radius: 10px;
+  color: #99BFF3;
+  font-size: 14px;
+  font-weight: 400;
+  z-index: 3;
+
+  & > .map-traffic {
+    margin-bottom: 20px;
+    display: flex;
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 22px;
+
+      span {
+        font-size: 14px;
+        width: 26px;
+        font-weight: normal;
+        color: #FEFEFE;
+        display: inline-block;
+        text-align: center;
+        position: absolute;
+      }
+
+      .on {
+        left: 2px;
+      }
+
+      .off {
+        right: 2px;
+      }
+    }
+
+
+    .switch input {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, .25);;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 3px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: rgba(63, 194, 255, .4);
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px rgba(63, 194, 255, .4);
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+
+    .slider.round {
+      border-radius: 10px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+  }
+
+  .desc-item {
+    display: flex;
+    margin-bottom: 5px;
+
+    & > b {
+      width: 14px;
+      margin-right: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & > .point {
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 4px;
+      }
+    }
+
+    & > span {
+      flex: 1;
+    }
+  }
+}
+
+// 点标记
+:host ::ng-deep .marker-container {
+  width: 72px;
+
+  & > .marker-box {
+    width: 72px;
+    height: 30px;
+    border: 1px solid #3FC2FF;
+    background: linear-gradient(90deg, rgba(63, 194, 255, 0.6) 0%, rgba(63, 194, 255, 0.1) 100%);
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 400;
+    color: #FFFFFF;
+    padding-left: 30px;
+    text-align: center;
+    line-height: 30px;
+    position: relative;
+
+    &.outside::before {
+      content: ' ';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      left: 9px;
+      top: 3px;
+      background: url("/assets/images/screen/icon_map_outside_marker.png") no-repeat;
+    }
+
+    &.inside::before {
+      content: ' ';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      left: 9px;
+      top: 3px;
+      background: url("/assets/images/screen/icon_map_inside_marker.png") no-repeat;
+    }
+  }
+
+  & > .flashing-marker {
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+  }
+}
+
+// 信息窗体
+:host ::ng-deep .info-window-container {
+  width: 274px;
+  display: flex;
+
+  &:before {
+    content: ' ';
+    width: 54px;
+    height: 21px;
+    margin-top: 23px;
+    background: url("/assets/images/screen/icon_info_window_guide_line.png") no-repeat;
+  }
+
+  & > .info-window-content {
+    width: 240px;
+    padding: 15px;
+    background: rgba(0, 62, 120, 0.8);
+    border: 1px solid #3FC2FF;
+    box-shadow: 0 0 106px 0 rgba(4, 17, 45, 0.76);
+    border-radius: 10px;
+
+    & > h5 {
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    & > p {
+      margin-bottom: 0;
+
+      & > span {
+        color: #99BFF3;
+        font-size: 18px;
+
+        i {
+          font-style: normal;
+        }
+      }
+
+      & > span:nth-of-type(1) {
+        margin-right: 20px;
+      }
+
+      & > span > b {
+        font-size: 24px;
+        color: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+<div class="content-flow">
+  <div *ngIf="false" class="progress-bar-menu">
+    <img src="/assets/images/first_step.png">
+  </div>
+  <div class="header-title">基本信息</div>
+  <form class="form-horizontal z-form-horizontal" (submit)="onAddParkingsFormSubmit()" #createParkingsInfoForm="ngForm"
+        autocomplete="off">
+    <div class="form-group">
+      <label class="col-sm-3 control-label"><b>* </b>停车场名称：</label>
+      <div class="col-sm-5 input-group">
+        <input class="form-control" type="text" appIgnoreSpace placeholder="请输入30字以内停车场名称" maxlength="30"
+               [(ngModel)]="parkingsInfo.parking_name" name="parking_name" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label"><b>* </b>停车场地址：</label>
+      <div class="col-sm-5 input-group">
+        <app-pro-city-dist-select [hasAdd]="true" [region_id]="select_region_id" (regionIdChanged)="onRegionIdChanged($event)"></app-pro-city-dist-select>
+        <input class="form-control" type="text" appIgnoreSpace placeholder="请输入详细地址" maxlength="50"
+               [(ngModel)]="parkingsInfo.address" name="address" (keyup)="checkAddress($event)" required/>
+        <button type="button" class="btn btn-select-map" (click)="openMapModal()">{{(parkingsInfo.lon&&parkingsInfo.lat)
+          ? '已设置位置' : '未设置位置'}}
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label"><b>* </b>停车场用地：</label>
+      <div class="col-sm-5 input-group">
+        <select class="form-control" [(ngModel)]="parkingsInfo.area_type" name="area_type" required>
+          <option value=1>路内停车场</option>
+          <option value=2>路外停车场</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label"><b>* </b>停车场类型：</label>
+      <div class="col-sm-9 input-group check-group">
+        <span *ngFor="let parkingType of parkingsType;let index=index">
+          <input type="checkbox" [value]="parkingType" id="parking_type_{{parkingType}}"
+                 (change)="changeParkingType($event)">
+          <label class="control-label" for="parking_type_{{parkingType}}">{{parkingType | parkingType}}</label>
+        </span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">产权联系人：</label>
+      <div class="col-sm-5 input-group">
+        <input class="form-control" type="text" appIgnoreSpace placeholder="请输入产权联系人" maxlength="15"
+               [(ngModel)]="parkingsInfo.contacts" name="contacts">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-3 control-label">联系电话：</label>
+      <div class="col-sm-5 input-group">
+        <input class="form-control" type="text" appIgnoreSpace placeholder="请输入联系电话，多个电话使用逗号分割" maxlength="50"
+               [(ngModel)]="parkingsInfo.telephone" name="telephone">
+      </div>
+    </div>
+    <div class="col-sm-8 form-footer">
+      <button type="submit" class="btn btn-primary"
+              [disabled]="!createParkingsInfoForm.form.valid||!checkedParkingType||!checkRegionId||!parkingsInfo.lon||!parkingsInfo.lat">
+        下一步
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- 地图组件 -->
+<app-z-map-select-point (selectedMarkerInfo)="getSelectedMarker($event)" [mapObj]="mapObj"></app-z-map-select-point>

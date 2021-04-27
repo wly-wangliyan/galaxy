@@ -1,0 +1,67 @@
+<div class="full-container" [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+  <app-full-title2 [title]="fullTitle" globalSize="sm"></app-full-title2>
+  <div class="chart-item-content" *ngIf="areaType===1">
+    <ul class="state-item inside-state-item" style="margin-top: 75px;">
+      <!-- <li>
+        <label>已接入泊位数</label>
+        <span class="font-green">{{accessParkingStateInfo.access_inside_space_num}}</span>
+        个
+      </li> -->
+      <li>
+        <label>已运营泊位数</label>
+        <span class="font-green">{{accessParkingStateInfo.operate_inside_space_num}}</span>
+        个
+      </li>
+      <!-- <li>
+        <label>泊位总数</label>
+        <span class="font-orange">{{accessParkingStateInfo.space_total_num}}</span>
+        个
+      </li> -->
+
+      <!--固定数值 by zack-->
+      <!-- <li>
+        <label>已接入泊位数</label>
+        <span class="font-green">29308</span>
+        个
+      </li> -->
+      <!-- <li>
+        <label>已运营泊位数</label>
+        <span class="font-green">31893</span>
+        个
+      </li> -->
+      <!-- <li>
+        <label>规划泊位数</label>
+        <span class="font-orange">48700</span>
+        个
+      </li> -->
+    </ul>
+  </div>
+  <div class="chart-item-content" *ngIf="areaType===2">
+    <ul class="state-item">
+      <li>
+        <label>已接入停车场</label>
+        <!-- <span class="font-green">280</span> -->
+        <span class="font-green">{{accessParkingStateInfo.operate_outside_parking_num}}</span>
+        个
+      </li>
+      <li>
+        <label>已接入泊位总数</label>
+        <!-- <span class="font-green">59740</span> -->
+        <span class="font-green">{{accessParkingStateInfo.operate_outside_space_num}}</span>
+        个
+      </li>
+      <!-- <li>
+        <label>停车场总数</label>
+        <span class="font-orange">{{accessParkingStateInfo.parking_total_num}}</span>
+        个
+      </li> -->
+
+      <!--固定数值 by zack-->
+      <li>
+        <label>停车场总数</label>
+        <span class="font-orange">864</span>
+        个
+      </li>
+    </ul>
+  </div>
+</div>

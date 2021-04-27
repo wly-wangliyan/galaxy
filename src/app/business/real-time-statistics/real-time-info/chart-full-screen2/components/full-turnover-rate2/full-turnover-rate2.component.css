@@ -1,0 +1,13 @@
+.chart-item-content {
+  height: 400px;
+  margin: 0 30px 30px 30px;
+}
+
+.chart-today-content {
+  position: absolute;
+  font-size: 24px;
+  top: 33px;
+  /* z-index: 999; */
+  color: #c8e9fd;
+  right: 20px;
+}

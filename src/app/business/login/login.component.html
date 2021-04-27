@@ -1,0 +1,30 @@
+<div class="main-layout">
+  <div class="content-layout">
+    <div class="content-dialog-header">
+    </div>
+    <div class="content-dialog">
+      <div class="content-dialog-title">
+        用户登录
+      </div>
+      <div class="user-group">
+        <input class="form-control" placeholder="请输入用户名" maxlength="20" [(ngModel)]="userName"
+               name="userName" tabindex="1" (mouseenter)="onUserMouseEnter()" (mouseleave)="onUserMouseLeave()"
+               (focus)="onUserFocus()" (blur)="onUserBlur()" #userInput>
+        <div class="user-icon" (mouseenter)="onUserMouseEnter()" (mouseleave)="onUserMouseLeave()"
+             (focus)="onUserFocus()" (blur)="onUserBlur()" (click)="userInput.focus()" #userIcon></div>
+      </div>
+      <div class="pwd-group">
+        <input class="form-control" type="password" placeholder="请输入密码" maxlength="20" [(ngModel)]="password"
+               name="password" tabindex="2" (keydown)="onPwdKeyDown($event)" (mouseenter)="onPwdMouseEnter()"
+               (mouseleave)="onPwdMouseLeave()" (focus)="onPwdFocus()" (blur)="onPwdBlur()" #pwdInput>
+        <div class="pwd-icon" (mouseenter)="onPwdMouseEnter()" (mouseleave)="onPwdMouseLeave()" (focus)="onPwdFocus()"
+             (blur)="onPwdBlur()" (click)="pwdInput.focus()" #pwdIcon></div>
+      </div>
+      <span class="tip-message" [ngStyle]="{visibility: isWrongInput?'visible':'hidden'}">{{wrongMessage}}</span>
+      <button tabindex="3" (click)="onLoginBtnClick()">登 录</button>
+    </div>
+  </div>
+  <a href="https://beian.miit.gov.cn" target="_blank"
+     style="cursor: pointer;text-decoration: none;color:#4548ae ;font-size: 12px;position:absolute;bottom: 10px;left:50%;transform:translate(-50%);">京ICP备15004460号-3</a>
+</div>
+<app-prompt-box></app-prompt-box>

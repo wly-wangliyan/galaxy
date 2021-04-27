@@ -1,0 +1,26 @@
+<div class="form-inline">
+  <div id="{{idDatePicker}}" class="input-group date" [ngStyle]="{'border-color': borderColor}">
+    <div *ngIf="customDateFormat" [class.show-icon]="disableInput" class="show-real-date form-control"
+          (click)="openDiv.click()">
+      {{customDateValue}}
+    </div>
+    <input type="text" class="form-control" [class.hide]="customDateFormat" autocomplete="off"
+           [(ngModel)]="dateModel" name="dateModel" placeholder="年/月/日" [placeholder]="placeholderValue"
+           [disabled]="disableInput"
+           (change)="onInputChange($event)"/>
+    <div class="input-group-addon" [class.show-icon]="disableInput"
+         [class.show-border]="disableInput" #openDiv>
+      <span [ngClass]="datepickerOptions.icon || 'glyphicon glyphicon-calendar'"
+            (keyup)="checkEmptyValue($event)"></span>
+    </div>
+  </div>
+  <div class="input-group bootstrap-timepicker timepicker time-picker" [ngStyle]="{'border-color': borderColor}">
+    <input id="{{idTimePicker}}" type="text" class="form-control input-small"
+           [(ngModel)]="timeModel" name="timeModel" [disabled]="disableInput"
+           (keyup)="checkEmptyValue($event)">
+    <div class="input-group-addon" [class.show-icon]="disableInput"
+         [class.show-border]="disableInput"><i
+      [ngClass]="timepickerOptions.icon || 'glyphicon glyphicon-time'"></i></div>
+  </div>
+  <button *ngIf="hasClearButton" type="button" (click)="onClearClick()">Clear</button>
+</div>

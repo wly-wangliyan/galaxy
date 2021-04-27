@@ -1,0 +1,36 @@
+.chart-item-content {
+  display: flex;
+}
+
+.chart-item-content > .state-item {
+  flex: 1;
+  margin-top: 42px;
+}
+
+.state-item > li {
+  width: 210px;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  font-size: 15px;
+  color: #fff;
+  list-style: none;
+}
+
+.state-item > li > label {
+  display: inline-block;
+  width: 108px;
+}
+
+.inside-state-item > li {
+  width: 210px;
+}
+
+.font-green {
+  color: #00FFD6;
+  font-size: 18px;
+}
+
+.font-orange {
+  color: #FF9700;
+  font-size: 18px;
+}

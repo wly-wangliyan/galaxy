@@ -1,0 +1,7 @@
+<div class="drop-down-box-container" [ngStyle]="{display: (!isPreventDisplay && (dataList.length != 0)) ? 'block':'none'}">
+  <div class="drop-down-box-item"
+       *ngFor="let data of dataList"
+       [ngStyle]="{width: contentWidth + 'px'}"
+       (click)="onItemClick(data)"><span
+    style="margin-left: 5px" [ngStyle]="{width: contentWidth + 'px'}">{{data.content}}</span></div>
+</div>

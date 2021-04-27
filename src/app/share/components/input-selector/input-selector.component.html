@@ -1,0 +1,17 @@
+<div class="input-selector-container">
+  <div class="search-parking">
+    <input class="form-control" type="text" [placeholder]="placeholder"
+           [(ngModel)]="searchValue" name="searchValue"
+           (keyup)="onKeyUpInput()"
+           (blur)="showOrCloseList(false)"
+           required maxlength="100">
+    <span></span>
+    <button (click)="onSearchDataClick()"><i></i></button>
+  </div>
+  <div class="parking-list" *ngIf="searchDataList.length>0"
+       #searchResultsContainer>
+    <div class="parking-item" *ngFor="let searchItem of searchDataList" (click)="onSelectDataClick(searchItem)">
+      {{searchItem.name}}
+    </div>
+  </div>
+</div>

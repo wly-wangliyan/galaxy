@@ -1,0 +1,84 @@
+.hint-container {
+  display: inline-block;
+  position: absolute;
+}
+
+.hint-square {
+  width: 0;
+  padding-bottom: 19px;
+  overflow: hidden;
+  display: inline-block;
+  background: rgba(0, 62, 120, 0.8);
+  box-shadow: 0 0 106px 0 rgba(4, 17, 45, 0.76);
+  border-radius: 10px;
+  font-size: 20px;
+  position: absolute;
+  top: -50px;
+  margin-left: 59px;
+  z-index: 99;
+
+  & > ul {
+    width: 240px;
+    margin: 0 auto;
+
+    & > li {
+      height: 30px;
+      background: linear-gradient(90deg, rgba(77, 194, 255, 0) 0%, rgba(77, 194, 255, 0.4) 50%, rgba(77, 194, 255, 0) 100%);
+      font-size: 18px;
+      line-height: 30px;
+      font-weight: 400;
+      color: #a3caff;
+      margin-bottom: 6px;
+      display: flex;
+
+      & > span {
+        flex: 1;
+        text-align: left;
+
+        &.num {
+          font-family: Arial;
+          color: #FFB543;
+          font-weight: bold;
+          font-size: 20px;
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  transition: all 0.1s;
+  transition-delay: .2s;
+  transition-timing-function: ease-out;
+}
+
+.hint-caret {
+  width: 0;
+  background: url('/assets/images/screen/icon_guide_line.png') no-repeat;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  height: 23px;
+  transition: width 0.2s;
+  transition-timing-function: ease-in;
+}
+
+.move-animation {
+  .hint-caret {
+    width: 59px;
+  }
+
+  .hint-square {
+    width: 280px;
+    border: 1px solid #3FC2FF;
+  }
+}
+
+.hint-title {
+  font-size: 20px;
+  font-family: Source Han Sans SC;
+  font-weight: bold;
+  color: #fff;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+}

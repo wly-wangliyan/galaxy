@@ -1,0 +1,72 @@
+.table-header-container {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.table-header {
+  height: 24px;
+  background: rgba(0, 0, 0, 0.3);
+  margin: 0px 15px;
+  color: #31fdff;
+  font-size: 14px;
+  text-align: center;
+  display: flex;
+  border-radius: 30px;
+  line-height: 24px;
+  flex: 1;
+}
+
+.table-header > div:first-child, .scroll-box-item > div:first-child {
+  flex: 0.5;
+}
+
+.table-header > div:nth-child(2), .scroll-box-item > div:nth-child(2) {
+  flex: 0.3;
+}
+
+.table-header > div:last-child, .scroll-box-item > div:last-child {
+  flex: 0.2;
+}
+
+.scroll-box {
+  height: 200px;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0px 15px 15px 15px;
+  color: #c8ebff;
+}
+
+.scroll-box-item {
+  flex: 1;
+  justify-content: stretch;
+  height: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-box-item:hover {
+  background: #005e61 !important;
+}
+
+.scroll-box-item > div {
+  text-align: center;
+  height: 25px;
+  line-height: 25px;
+}
+
+.scroll-box-status {
+  margin: 0px 7px;
+}
+
+.scroll-box-title {
+  text-align: left !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+.full-monitor-container-sm .scroll-box {
+  height: 165px;
+}

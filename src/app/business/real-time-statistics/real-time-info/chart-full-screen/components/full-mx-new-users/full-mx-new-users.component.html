@@ -1,0 +1,7 @@
+<div class="full-container" [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+  <app-full-title [title]="'美行停车APP新增用户曲线'" [globalSize]="sourceSize"></app-full-title>
+  <div class="chart-item-content">
+    <div echarts class="chart-flow" [options]="chartOptions" (chartInit)="onChartInit($event)">
+    </div>
+  </div>
+</div>

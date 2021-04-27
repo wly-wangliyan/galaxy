@@ -1,0 +1,29 @@
+<div class="full-container"
+     [class.full-container-superlg]="sourceSize === 'superlg'"
+     [class.full-container-sm]="sourceSize === 'sm'"
+     [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+  <app-full-title [title]="'停车场在线率'" [globalSize]="sourceSize"></app-full-title>
+  <div class="chart-item-content">
+    <div echarts class="chart-dashboard" [options]="chartOptions" (chartInit)="onChartInit($event)">
+    </div>
+    <div class="chart-detail">
+      <div class="chart-header">
+        <app-full-counter [title]="'停车场总数'"
+                          [count]="dataInfo?dataInfo.total_num:0"
+                          [size]="sourceSize"></app-full-counter>
+      </div>
+      <div class="chart-progress-1">
+        <app-full-progressbar [title]="'在线停车场'" [count]="dataInfo?dataInfo.online_num:0"
+                              [total]="dataInfo?dataInfo.total_num:0"
+                              [color]="'#47d26d'"
+                              [size]="sourceSize"></app-full-progressbar>
+      </div>
+      <div class="chart-progress-2">
+        <app-full-progressbar [title]="'中断停车场'" [count]="dataInfo?dataInfo.offline_num:0"
+                              [total]="dataInfo?dataInfo.total_num:0"
+                              [color]="'#f04646'"
+                              [size]="sourceSize"></app-full-progressbar>
+      </div>
+    </div>
+  </div>
+</div>

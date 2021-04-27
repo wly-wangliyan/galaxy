@@ -1,0 +1,61 @@
+.fs-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:#011428 url('/assets/images/screen/full_screen_bg2.png');
+  position: relative;
+}
+
+.fs-bg-logo > .fs-logo {
+  display: block;
+  height: 80px;
+  background: url('/assets/images/screen/full_screen_logo.png') center 17px no-repeat;
+}
+
+.fs-body {
+  display: flex;
+}
+
+.fs-left-side {
+  width: 1455px;
+  height: 1080px;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.fs-right-side {
+  flex: 1;
+}
+
+.fs-both-side-item {
+  width: 100%;
+  height: 245px;
+  margin: 20px 0;
+  display: flex;
+}
+
+.fs-map-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.fs-bg-logo {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  height: 98px;
+  background: url('/assets/images/screen/full_screen_logo2.png') center 0 no-repeat;
+}
+
+.fs-time {
+  margin-bottom: 10px;
+}
+
+.flow-content {
+  height: 100%;
+}

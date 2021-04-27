@@ -1,0 +1,14 @@
+.date-time {
+  width: 147px;
+  margin-right: 0px;
+  display: inline-block;
+}
+
+.date-minute {
+  width: 100px;
+}
+
+.date-time-group {
+  display: inline-flex;
+}
+

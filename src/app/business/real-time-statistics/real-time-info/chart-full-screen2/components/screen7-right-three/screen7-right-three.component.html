@@ -1,0 +1,10 @@
+<app-full-screen-item zTitle="路内路段泊位状态" headerBgType="4">
+  <div class="chart-item-content">
+    <div class="bg-container">
+      <i class="bg-circle"></i>
+      <i class="icon-car"></i>
+    </div>
+    <div echarts class="chart-flow" [options]="chartOptions" (chartInit)="onChartInit($event)">
+    </div>
+  </div>
+</app-full-screen-item>

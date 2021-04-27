@@ -1,0 +1,9 @@
+<div class="full-border" [class.full-border-superlg]="globalSize === 'superlg'"
+     [class.triangle-bg]="arrowSize === 'sm'"
+     [class.triangle-radius]="arrowRadius">
+  <ng-content></ng-content>
+  <span class="triangle-border-nw" [class.triangle-border-sm-nw]="arrowSize === 'sm'"></span>
+  <span class="triangle-border-ne" [class.triangle-border-sm-ne]="arrowSize === 'sm'"></span>
+  <span class="triangle-border-sw" [class.triangle-border-sm-sw]="arrowSize === 'sm'"></span>
+  <span class="triangle-border-se" [class.triangle-border-sm-se]="arrowSize === 'sm'"></span>
+</div>

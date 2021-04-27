@@ -1,0 +1,77 @@
+.no-opened {
+  width: 475px;
+  margin: 76px auto;
+}
+
+.no-opened h2 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 400;
+  color: rgba(30, 93, 170, 1);
+  line-height: 52px;
+  font-family: SourceHanSansCN-Regular;
+}
+
+.no-opened h4 {
+  text-align: center;
+  font-size: 19px;
+  font-weight: 300;
+  color: rgba(153, 153, 153, 1);
+  opacity: 0.6;
+  font-family: SourceHanSansCN-Light;
+}
+
+.no-opened button {
+  width: 349px;
+  height: 64px;
+  margin: 32px calc(50% - 175px);
+  background: #45c8dc;
+  border-radius: 32px;
+  border: none;
+  outline: none;
+  font-size: 24px;
+  font-family: SourceHanSansCN-Regular;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+}
+
+.no-opened button[disabled] {
+  background: rgba(221, 221, 221, 1) !important;
+}
+
+.setting-status {
+  width: 116px;
+  height: 32px;
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(212, 212, 212, 1);
+  outline: none;
+}
+
+.hide {
+  display: none;
+}
+
+/*模态框*/
+.modal-dialog {
+  width: 522px;
+}
+
+.modal-content {
+  height: 314px;
+}
+
+.modal-body {
+  margin: 33px 0;
+}
+
+.modal-footer {
+  margin-top: 46px;
+}
+.table {
+ text-align: center;
+}
+
+.table > thead > tr > th {
+  padding-left: 0px;
+  text-align: center;
+}

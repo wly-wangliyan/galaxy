@@ -1,0 +1,23 @@
+.content-flow {
+  height: calc(100% - 124px);
+}
+
+.table-detail-container {
+  min-height: calc(100% - 20px);
+}
+
+.z-form-horizontal {
+  margin: 20px auto auto 90px !important;
+}
+
+.disable-cursor {
+  cursor: not-allowed !important;
+}
+
+.check-group > span {
+  margin-right: 5px;
+}
+
+.parking-type {
+  margin-right: 15px;
+}

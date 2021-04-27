@@ -1,0 +1,57 @@
+<div class="header">
+  <app-crumb [level1Name]="'数据统计'" [level2Name]="'终端统计'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="statistics-content">
+    <div class="statistics-content-header statistics-content-header-combine">
+      <h5>新用户增长趋势</h5>
+      <div class="date-picker">
+        <app-date-time class="start-date" [(ngModel)]="startDate" name="startDate" [timepickerOptions]="false"
+          [datepickerOptions]="datePickerDefaultOptions" (dateChange)="onDateChange($event)"></app-date-time>
+        <span>-</span>
+        <app-date-time class="end-date" [(ngModel)]="endDate" name="endDate" [timepickerOptions]="false"
+          [datepickerOptions]="datePickerDefaultOptions" (dateChange)="onDateChange($event)"></app-date-time>
+        <select name="cycle" class="form-control" [(ngModel)]="currentCycle"
+          (change)="onStatisticsCycleSelectChange($event.target.value)">
+          <option value="0">请选择</option>
+          <option value="1">近7天</option>
+          <option value="2">近30天</option>
+        </select>
+        <button type="button" class="btn btn-primary" (click)="onSelectDateButtonClick()">确定</button>
+      </div>
+    </div>
+    <div echarts class="statistics-chart" [options]="lineChartOptions" (chartInit)="onLineChartInit($event)">
+
+    </div>
+  </div>
+
+  <div class="statistics-content">
+    <div class="statistics-content-header statistics-content-header-combine">
+      <h5>详细数据</h5>
+    </div>
+    <div class="statistics-list-container">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>新关注人数</th>
+            <th>取消关注人数</th>
+            <th>净增关注人数</th>
+            <th>累计关注人数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of currentPageList">
+            <td>{{data.date}}</td>
+            <td>{{data.source ? data.source.wechat_new_user : 0}}</td>
+            <td>{{data.source ? data.source.wechat_cancel_user : 0}}</td>
+            <td>{{data.source ? data.source.wechat_net_increase_user : 0}}</td>
+            <td>{{data.source ? data.source.wechat_total_user: 0}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <app-pagination [currentPage]="currentPage" [pageCount]="pageCount" (pageSelected)="onPageSelected($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>

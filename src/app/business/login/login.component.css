@@ -1,0 +1,152 @@
+.main-layout {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: url('../../../assets/images/login/login_bg.png') no-repeat center;
+  background-size: cover;
+}
+
+.content-layout {
+  width: 1200px;
+  height: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -300px;
+  margin-left: -600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-dialog-header {
+  width: 330px;
+  height: 68px;
+  margin: 0 auto;
+  background: url('../../../assets/images/login/login_logo.png') no-repeat center;
+}
+
+.content-dialog {
+  width: 340px;
+  height: 360px;
+  margin: 40px auto;
+  border-radius: 3px;
+  background: rgba(48, 48, 48, .6);
+  overflow: hidden;
+}
+
+.content-dialog-title {
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  margin-top: 34px;
+  margin-bottom: 28px;
+}
+
+.user-group, .pwd-group {
+  position: relative;
+  margin: auto 30px;
+}
+
+.pwd-group {
+  margin-top: 23px;
+}
+
+/* WebKit browsers */
+input::-webkit-input-placeholder {
+  color: #F5F5F5 !important;
+}
+
+/* Mozilla Firefox 4 to 18 */
+input:-moz-placeholder {
+  color: #F5F5F5 !important;
+}
+
+/* Mozilla Firefox 19+ */
+input::-moz-placeholder {
+  color: #F5F5F5 !important;
+}
+
+/* Internet Explorer 10+ */
+input:-ms-input-placeholder {
+  color: #F5F5F5 !important;
+}
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0 1000px #ccc inset;
+  -webkit-box-shadow: 0 0 0 1000px #ccc inset;
+  -moz-box-shadow: 0 0 0 1000px #ccc inset;
+  -o-box-shadow: 0 0 0 1000px #ccc inset;
+
+}
+
+input {
+  display: block;
+  width: 283px;
+  height: 48px;
+  outline: none;
+  border-radius: 2px;
+  padding-left: 56px;
+  font-size: 15px;
+  color: #222;
+  background: rgba(255, 255, 255, .45);
+}
+
+/*input:focus, input:hover, .input-focus {*/
+/*border: 1px solid #36E4FF;*/
+/*color: #8af0ff !important;*/
+/*}*/
+
+button {
+  width: 282px;
+  height: 53px;
+  margin: auto 30px;
+  border-radius: 3px;
+  font-size: 18px;
+  color: #fff;
+  background: #45c8dc;
+  text-align: center;
+  border: none;
+  outline: none;
+}
+
+button:hover, button:focus {
+  background: #3baabb;
+}
+
+.tip-message {
+  color: #FF4343;
+  font-size: 12px;
+  line-height: 43px;
+  margin-left: 30px;
+}
+
+.user-icon {
+  position: absolute;
+  left: 16px;
+  top: 13px;
+  width: 21px;
+  height: 23px;
+  background: url('../../../assets/images/login/icon_user.png') no-repeat center;
+  background-size: contain;
+}
+
+.user-icon-focus {
+  background: url('../../../assets/images/login/icon_user_push.png') no-repeat center;
+  background-size: contain;
+}
+
+.pwd-icon {
+  position: absolute;
+  left: 17px;
+  top: 11px;
+  width: 21px;
+  height: 25px;
+  background: url('../../../assets/images/login/icon_pwd.png') no-repeat center;
+  background-size: contain;
+}
+
+.pwd-icon-focus {
+  background: url('../../../assets/images/login/icon_pwd_push.png') no-repeat center;
+  background-size: contain;
+}

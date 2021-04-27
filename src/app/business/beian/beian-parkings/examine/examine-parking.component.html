@@ -1,0 +1,178 @@
+<div class="header">
+  <app-crumb [level1Name]="'备案审核'" [level2Name]="'停车场'"
+             [level2AbsolutePath]="level2AbsolutePath" [level3Name]="'审核备案'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="container examine-container" *ngIf="parkingBeianInfo">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="examine-image" (click)="openZoomPictureModal()">
+          <img *ngIf="parkingBeianInfo.images&&parkingBeianInfo.images.length>0"
+               [src]="parkingBeianInfo.images[currentImageIndex]">
+        </div>
+        <div class="examine-image-btn clearfix" *ngIf="parkingBeianInfo.images&&parkingBeianInfo.images.length>1">
+          <b class="image-switch image-switch-right"
+             [class.disabled]="currentImageIndex===parkingBeianInfo.images.length-1"
+             (click)="showNextImage(1)"></b>
+          <b class="image-switch-center">{{currentImageIndex+1}}/{{parkingBeianInfo.images.length}}</b>
+          <b class="image-switch image-switch-left" [class.disabled]="currentImageIndex===0"
+             (click)="showNextImage(-1)"></b>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="examine-item">
+          <div class="examine-tab">备案详情</div>
+          <table class="table examine-table">
+            <tr>
+              <td class="active">物业公司名称：</td>
+              <td>
+                <span class="link-text" *ngIf="parkingBeianInfo.companyName"
+                      (click)="companyDetailModal.showDetail(parkingBeianInfo.companyId)">
+                  {{parkingBeianInfo.company.company_name}}</span>
+                <span *ngIf="!parkingBeianInfo.companyName">--</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="active">停车场名称：</td>
+              <td>{{parkingBeianInfo.parking_name | zPlaceholder}}</td>
+            </tr>
+            <tr>
+              <td class="active">停车场地址：</td>
+              <td>
+                {{parkingBeianInfo | parkingFormatAddress:1 | zPlaceholder}}
+                <button type="button" class="btn btn-success" (click)="openMapModal()">查看地址</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="active">停车场用地：</td>
+              <td>{{parkingBeianInfo.area_type | areaType | zPlaceholder}}</td>
+            </tr>
+            <tr>
+              <td class="active">停车场类型：</td>
+              <td>{{parkingBeianInfo.parking_category | parkingType | zPlaceholder}}</td>
+            </tr>
+            <tr>
+              <td class="active">产权联系人：</td>
+              <td>{{parkingBeianInfo.contacts | zPlaceholder}}</td>
+            </tr>
+            <tr>
+              <td class="active">联系电话：</td>
+              <td>{{parkingBeianInfo.telephone | zPlaceholder}}</td>
+            </tr>
+            <tr>
+              <td class="active">备案有效期：</td>
+              <td *ngIf="parkingBeianInfo.start_time&&parkingBeianInfo.end_time">{{(parkingBeianInfo.start_time*1000|
+                date:"y-MM-dd")+'至'+((parkingBeianInfo.end_time-1)*1000|
+                date:"y-MM-dd")}}
+              </td>
+              <td *ngIf="!(parkingBeianInfo.start_time&&parkingBeianInfo.end_time)">--</td>
+            </tr>
+            <tr>
+              <td class="active">停车场系统-厂商：</td>
+              <td>
+                <span class="link-text" *ngIf="parkingBeianInfo.manufacturerId"
+                      (click)="viewManufacturerDetailModal.showDetail(parkingBeianInfo.manufacturerId)">
+                  {{parkingBeianInfo.platformFullName}}
+                </span>
+                <span *ngIf="!parkingBeianInfo.manufacturerId">{{parkingBeianInfo.platformFullName|zPlaceholder}}</span>
+              </td>
+            </tr>
+          </table>
+
+          <div class="btn-examine-wrap" *ngIf="examineType===0">
+            <button type="button" class="btn btn-primary" (click)="openExamineParkingModal()">审核</button>
+          </div>
+        </div>
+        <div class="examine-item" *ngIf="examineType>0">
+          <div class="examine-tab">审核结果</div>
+          <table class="table examine-table">
+            <tr>
+              <td class="active">审核结果：</td>
+              <td>{{parkingBeianInfo.reviewed_status|revieweStatus}}</td>
+            </tr>
+            <tr *ngIf="examineType===2">
+              <td class="active">原因：</td>
+              <td>{{parkingBeianInfo.failed_reason | zPlaceholder}}</td>
+            </tr>
+            <tr *ngIf="examineType===1 && parkingBeianInfo.remarks">
+              <td class="active">备注：</td>
+              <td>{{parkingBeianInfo.remarks}}</td>
+            </tr>
+            <tr>
+              <td class="active">审核人：</td>
+              <td>{{parkingBeianInfo.user?.realname | zPlaceholder}}</td>
+            </tr>
+            <tr>
+              <td class="active">审核时间：</td>
+              <td>{{parkingBeianInfo.reviewed_time*1000| date:"y-MM-dd HH:mm:ss"}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 审核结果模态框 -->
+<div class="modal fade" id="parkingBeianExamineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     data-backdrop="false" data-keyboard="true" aria-hidden="true" *ngIf="parkingBeianInfoAuditParams">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">审核</h4>
+      </div>
+      <form class="form-horizontal" #addParkingBeianExamineForm="ngForm" autocomplete="off"
+            (submit)="onAddParkingBeianExamineFormSubmit()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">审核结果：</label>
+            <div class="col-sm-9 examine-radio-wrap">
+              <label>
+                <input type="radio" name="status" value="1" [checked]="parkingBeianInfoAuditParams.status===1"
+                       (change)="selectExamineResult($event)"/>
+                通过
+              </label>
+              <label>
+                <input type="radio" name="status" value="2" [checked]="parkingBeianInfoAuditParams.status===2"
+                       (change)="selectExamineResult($event)"/>
+                不通过
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">
+              <b *ngIf="parkingBeianInfoAuditParams.status===2">* </b>
+              备注：
+            </label>
+            <div class="col-sm-8">
+              <textarea class="form-control" cols="3" rows="3" name="failed_reason" maxlength="100"
+                        [(ngModel)]="parkingBeianInfoAuditParams.failed_reason"
+                        [required]="parkingBeianInfoAuditParams.status===2"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary"
+                  [disabled]="!addParkingBeianExamineForm.form.valid||!parkingBeianInfoAuditParams.status">确定
+          </button>
+          <button type="button" data-dismiss="modal" class="btn btn-inverse">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- 地图组件 -->
+<app-z-map-select-point [mapObj]="mapItem"></app-z-map-select-point>
+
+<!-- 图片放大 -->
+<app-z-photo-select *ngIf="parkingBeianInfo"
+                    [imageUrls]="parkingBeianInfo.images"
+                    [isCallbackImgIndex]="true"
+                    (currentPictureIndex)="onPictureIndexChange($event)"></app-z-photo-select>
+
+<app-company-modal #companyDetailModal></app-company-modal>
+
+<app-manufacturer-modal #viewManufacturerDetailModal></app-manufacturer-modal>

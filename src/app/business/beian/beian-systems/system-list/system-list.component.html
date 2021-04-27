@@ -1,0 +1,82 @@
+<form class="search-form">
+  <div class="form-group">
+    <span>系统厂商：</span>
+    <input class="form-control" placeholder="请输入系统厂商" name="manufacturer_name"
+           [(ngModel)]="searchParams.manufacturer_name"
+           (keyup)="searchAssistant.submitSearch(true, $event)"/>
+  </div>
+  <div class="form-group">
+    <span>停车管理系统：</span>
+    <input class="form-control" placeholder="请输入系统名称" name="platform_name" [(ngModel)]="searchParams.platform_name"
+           (keyup)="searchAssistant.submitSearch(true, $event)"/>
+  </div>
+
+  <div class="form-group" *ngIf="examineType===0">
+    <span>提交时间：</span>
+    <app-date-time class="start-date" name="startDate" [(ngModel)]="startDate"
+                   [timepickerOptions]="false"
+                   [datepickerOptions]="datePickerDefaultOptions"></app-date-time>
+    <span class="form-separator">-</span>
+    <app-date-time class="end-date" name="endDate" [(ngModel)]="endDate"
+                   [timepickerOptions]="false"
+                   [datepickerOptions]="datePickerDefaultOptions"></app-date-time>
+    <button type="button" (click)="searchAssistant.submitSearch(false)">查询</button>
+  </div>
+
+  <div class="form-group" *ngIf="examineType>0">
+    <span>审核时间：</span>
+    <app-date-time class="start-date" name="reviewedStartDate" [(ngModel)]="reviewedStartDate"
+                   [timepickerOptions]="false"
+                   [datepickerOptions]="datePickerDefaultOptions"></app-date-time>
+    <span class="form-separator">-</span>
+    <app-date-time class="end-date" name="reviewedEndDate" [(ngModel)]="reviewedEndDate"
+                   [timepickerOptions]="false"
+                   [datepickerOptions]="datePickerDefaultOptions"></app-date-time>
+  </div>
+  <div class="form-group" *ngIf="examineType>0">
+    <span>审核人：</span>
+    <input class="form-control" placeholder="请输入审核人称" name="realname" [(ngModel)]="searchParams.realname"
+           (keyup)="searchAssistant.submitSearch(true, $event)"/>
+    <button type="button" (click)="searchAssistant.submitSearch(false)">查询</button>
+  </div>
+</form>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th class="th-4">序号</th>
+    <th class="th-15">系统厂商</th>
+    <th class="th-30">停车管理系统</th>
+    <th class="th-30">软著权编号</th>
+    <th class="th-10" *ngIf="examineType===0">提交时间</th>
+    <th class="th-10" *ngIf="examineType>0">审核时间</th>
+    <th class="th-10" *ngIf="examineType>0">审核人</th>
+    <th class="th-6">操作</th>
+  </tr>
+  </thead>
+  <tbody *ngIf="platformBeianList">
+  <tr *ngFor="let platform of platformBeianList; let index=index" (click)="onSelect(platform)"
+      [ngClass]="{tableActive: platform.platform_beian_id==selectPlatform.platform_beian_id}">
+    <td>{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+    <td *ngIf="platform.manufacturerId" [title]="platform.manufacturerName" (click)="viewManufacturerDetailModal.showDetail(platform.manufacturerId)">
+      <span class="link-text">{{platform.manufacturerName}}</span>
+    </td>
+    <td *ngIf="!platform.manufacturerId">--</td>
+    <td [title]="platform.platform_name">{{platform.platform_name | zPlaceholder}}</td>
+    <td>{{platform.authority_num | zPlaceholder}}</td>
+    <td class="td-timestamp" *ngIf="examineType===0">{{platform.created_time*1000 | date:"y-MM-dd HH:mm:ss"}}</td>
+    <td class="td-timestamp" *ngIf="examineType>0">{{platform.reviewed_time*1000 | date:"y-MM-dd HH:mm:ss"}}</td>
+    <td *ngIf="examineType>0">{{platform.user?.realname | zPlaceholder}}</td>
+    <td class="td-operation">
+      <button class="btn-operation icon-view" [title]="'查看'" *ngIf="examineType>0"
+              [routerLink]="['../',getExamineTypeStr(),'examine',platform.platform_beian_id]"></button>
+      <button class="btn-operation icon-examine" [title]="'审核'" *ngIf="examineType===0"
+              [routerLink]="['../',getExamineTypeStr(),'examine',platform.platform_beian_id]"></button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<app-no-data-page *ngIf="isLoadComplete && platformBeianList.length === 0"></app-no-data-page>
+<app-pagination [currentPage]="searchAssistant.currentPage" [pageCount]="searchAssistant.pageList.length"
+                (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+
+<app-manufacturer-modal #viewManufacturerDetailModal></app-manufacturer-modal>

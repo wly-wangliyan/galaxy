@@ -1,0 +1,65 @@
+<div class="content-flow">
+  <div class="header-container">
+    <div class="header-content">
+      <div>
+        <i *ngIf="SearchSelectorType.Park === currentSelectorType" class="i-parking-icon"></i>
+        <i *ngIf="SearchSelectorType.Region === currentSelectorType" class="i-region-icon"></i>
+        <i *ngIf="SearchSelectorType.Group === currentSelectorType" class="i-group-icon"></i>
+        <span>{{titleName}}</span>
+      </div>
+      <p>{{totalParkingCount}}</p>
+    </div>
+    <div class="header-content">
+      <div>
+        <i class="i-flow-icon"></i>
+        <span>今日总流量</span>
+      </div>
+      <p>{{totalFlowCount}}</p>
+    </div>
+  </div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>{{tableName}}</th>
+      <th>
+        <div class="td-btn-icon"><span>今日流量</span>
+          <button type="button"
+                  [class.btn-icon-up]="searchParams?.order_by === '-entry_flow'"
+                  [class.btn-icon-down]="searchParams?.order_by === 'entry_flow'"
+                  [class.btn-icon-none]="searchParams?.order_by !== 'entry_flow' && searchParams?.order_by !== '-entry_flow'"
+                  (click)="onChangeFlowOrderBtnClick()"></button>
+        </div>
+      </th>
+      <th>
+        <div class="td-btn-icon"><span>当前填充率</span>
+          <button type="button"
+                  [class.btn-icon-up]="searchParams?.order_by === '-filling_rate'"
+                  [class.btn-icon-down]="searchParams?.order_by === 'filling_rate'"
+                  [class.btn-icon-none]="searchParams?.order_by !== 'filling_rate' && searchParams?.order_by !== '-filling_rate'"
+                  (click)="onChangeFillingRateOrderBtnClick()"></button>
+        </div>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of dataList;">
+      <td *ngIf="currentSelectorType === SearchSelectorType.Park" [title]="data.parking?.parking_name">
+        {{data.parking?.parking_name}}
+      </td>
+      <td *ngIf="currentSelectorType === SearchSelectorType.Group" [title]="data.parking_group?.parking_group_name">
+        {{data.parking_group?.parking_group_name}}
+      </td>
+      <td *ngIf="currentSelectorType === SearchSelectorType.Region" [title]="data.region?.name">{{data.region?.name}}
+      </td>
+      <td>{{data.entry_flow}}</td>
+      <td>{{data.filling_rate * 100|zNumber:'0.0-2'}}%</td>
+    </tr>
+    </tbody>
+  </table>
+  <app-no-data-page *ngIf="isLoadComplete && dataList.length === 0"></app-no-data-page>
+  <app-pagination
+    [currentPage]="searchAssistant.currentPage"
+    [pageCount]="searchAssistant.pageCount"
+    (pageSelected)="searchAssistant.pageSelected($event)"
+  ></app-pagination>
+</div>

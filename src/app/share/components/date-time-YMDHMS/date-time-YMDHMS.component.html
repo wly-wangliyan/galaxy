@@ -1,0 +1,8 @@
+<div class="date-time-group">
+  <app-date-time class="date-time" [(ngModel)]="dateTimeDate" name="datetime_date" [borderColor]="borderColor"
+                 [timepickerOptions]="false" [datepickerOptions]="dateOptions" (dateChange)="onDateTimeDateChanged()"
+                 [disableInput]="disableInput"></app-date-time>
+  <app-date-time class="date-time date-minute" [(ngModel)]="dateTimeTime" name="datetime_time" [borderColor]="borderColor"
+                 [timepickerOptions]="{showMeridian: false, minuteStep: 1}" [datepickerOptions]="false"
+                 (dateChange)="onDateTimeTimeChanged()" [disableInput]="disableInput"></app-date-time>
+</div>

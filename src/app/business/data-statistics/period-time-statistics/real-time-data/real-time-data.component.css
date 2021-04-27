@@ -1,0 +1,66 @@
+.content-flow {
+  height: calc(100% - 124px);
+}
+th {
+  width: 33.33%;
+}
+
+.btn-icon-up, .btn-icon-up:hover {
+  background: url(../../../../../assets/images/sprites/18*18.png) -90px 0px;
+  width: 18px;
+  height: 20px;
+  outline: none !important;
+  border: none;
+  vertical-align: middle;
+}
+
+.btn-icon-down, .btn-icon-down:hover {
+  background: url(../../../../../assets/images/sprites/18*18.png) -108px 0px;
+  width: 18px;
+  height: 20px;
+  outline: none !important;
+  border: none;
+  vertical-align: middle;
+}
+
+.btn-icon-none, .btn-icon-none:hover {
+  background: url(../../../../../assets/images/sprites/18*18.png) -126px 0px;
+  width: 18px;
+  height: 20px;
+  outline: none !important;
+  border: none;
+  vertical-align: middle;
+}
+
+.td-btn-icon {
+  position: relative;
+}
+
+.td-btn-icon > button {
+  margin-top: 9px;
+  position: absolute;
+}
+
+.i-flow-icon {
+  width: 40px;
+  height: 40px;
+  background: url(../../../../../assets/images/sprites/40*40.png) -40px 0px;
+}
+
+.i-parking-icon {
+  width: 40px;
+  height: 40px;
+  background: url(../../../../../assets/images/sprites/40*40.png) -160px 0px;
+}
+
+.i-region-icon {
+  width: 40px;
+  height: 40px;
+  background: url(../../../../../assets/images/sprites/40*40.png) -240px 0px;
+}
+
+.i-group-icon {
+  width: 40px;
+  height: 40px;
+  background: url(../../../../../assets/images/sprites/40*40.png) -200px 0px;
+}

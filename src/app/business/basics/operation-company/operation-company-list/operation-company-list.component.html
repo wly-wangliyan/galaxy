@@ -1,0 +1,59 @@
+<div class="header">
+  <app-crumb [level1Name]="'基础管理'" [level2Name]="'物业公司'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form">
+      <div class="form-group">
+        <span>名称：</span>
+        <input class="form-control" placeholder="请输入公司名称" [(ngModel)]="searchParams.company_name" name="company_name"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>联系人：</span>
+        <input class="form-control" placeholder="请输入联系人" [(ngModel)]="searchParams.contacts" name="contacts"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>联系方式：</span>
+        <input class="form-control" placeholder="请输入联系方式" [(ngModel)]="searchParams.telephone" name="telephone"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>物业公司名称</th>
+        <th>联系人</th>
+        <th>联系方式</th>
+        <th>注册时间</th>
+        <th style="width: 4%;">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let company of companiesList; let index=index" (click)="onSelect(company)"
+          [ngClass]="{tableActive: company.company_id==currentSelectCompany.company_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td [title]="company.company_name?company.company_name:''">{{company.company_name | zMaxLength:20}}</td>
+        <td [title]="company.contacts?company.contacts:''">{{company.contacts | zMaxLength:15|zPlaceholder}}</td>
+        <td [title]="company.telephone?company.telephone:''">{{company.telephone | zMaxLength:25|zPlaceholder}}</td>
+        <td>
+          <ng-container *ngIf="company.created_time">
+            {{company.created_time*1000 | date: 'yyyy-MM-dd HH:mm:ss'}}
+          </ng-container>
+          <ng-container *ngIf="!company.created_time">--</ng-container>
+        </td>
+        <td class="td-operation">
+          <button class="btn-operation icon-view" [title]="'查看详情'"
+                  [routerLink]="['detail', company.company_id]"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && companiesList.length === 0"></app-no-data-page>
+    <app-pagination [currentPage]="searchAssistant.currentPage"
+                    [pageCount]="searchAssistant.pageList.length"
+                    (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+  </div>
+</div>

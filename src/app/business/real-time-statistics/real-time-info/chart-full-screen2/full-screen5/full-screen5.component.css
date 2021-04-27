@@ -1,0 +1,96 @@
+.fs-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #011428 url('/assets/images/screen/full_screen_bg2.png');
+  position: relative;
+  padding: 0 10px 0 20px;
+}
+
+.fs-bg-logo > .fs-logo {
+  display: block;
+  height: 80px;
+  background: url('/assets/images/screen/full_screen_logo.png') center 17px no-repeat;
+}
+
+.fs-body {
+  display: flex;
+}
+
+.fs-left-side {
+  width: 950px;
+  margin-right: 20px;
+}
+
+.fs-left-side > .fs-left-side-item {
+  display: flex;
+  margin: 20px 0;
+}
+
+.fs-left-side > .fs-left-side-item > .fs-both-side-item:nth-of-type(1) {
+  width: 455px;
+  margin-right: 20px;
+}
+
+.fs-left-side > .fs-left-side-item > .fs-both-side-item:nth-of-type(2) {
+  flex: 1;
+}
+
+.fs-right-side {
+  flex: 1;
+}
+
+.fs-right-side > .fs-right-bottom-side {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.fs-right-side > .fs-right-bottom-side > .fs-both-side-item:nth-of-type(1) {
+  width: 458px;
+  margin-right: 20px;
+  margin-top: 0;
+}
+
+.fs-right-side > .fs-right-bottom-side > .fs-both-side-item:nth-of-type(2) {
+  width: 458px;
+  margin-top: 0;
+  flex: 1;
+}
+
+.fs-both-side-item {
+  width: 100%;
+  height: 245px;
+  /*margin: 20px 0;*/
+  display: flex;
+}
+
+.fs-map-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 940px;
+  height: 815px;
+  padding: 20px 0 20px 0;
+}
+
+.fs-bg-logo {
+  position: absolute;
+  top: 19px;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  height: 98px;
+  background: url('/assets/images/screen/full_screen_logo2.png') center 0 no-repeat;
+}
+
+.fs-time {
+  margin-bottom: 10px;
+}
+
+.flow-content {
+  height: 100%;
+}
+

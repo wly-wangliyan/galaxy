@@ -1,0 +1,22 @@
+<div class="table-content">
+  <div class="table-header">
+    <div>停车场</div>
+    <div>泊位数</div>
+    <div>泊位状态</div>
+  </div>
+  <div class="scroll-box" #scrollDiv (mouseenter)="onScrollDivMouseEnter()"
+       (mouseleave)="onScrollDivMouseLeave()">
+    <div class="scroll-box-item" *ngFor="let dataItem of dataList">
+      <div class="scroll-box-title">
+        {{dataItem.source.parking.parking_name}}
+      </div>
+      <div class="ellipsis">
+        <span
+          style="font-size: 24px;color: #fff">{{dataItem.source.parking_tmp_num}}</span>/{{dataItem.source.parking_total}}
+      </div>
+      <div [ngStyle]="{color: dataItem.source.status|screenParkingState:true}">
+        {{dataItem.source.status|screenParkingState}}
+      </div>
+    </div>
+  </div>
+</div>

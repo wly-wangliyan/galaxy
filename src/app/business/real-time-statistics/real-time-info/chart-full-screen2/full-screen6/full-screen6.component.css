@@ -1,0 +1,31 @@
+.fs-container {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px 40px 0 20px;
+  display: flex;
+  flex-direction: column;
+  background:#011428 url('/assets/images/screen/full_screen_bg_top.png');
+  -webkit-background-size: 200%;
+  background-size: 200%;
+  position: relative;
+}
+
+.fs-body {
+  flex: 2;
+  display: flex;
+}
+
+.fs-right-side {
+  flex: 1;
+}
+
+.fs-left-side {
+  width: 950px;
+}
+
+.fs-both-side-item {
+  width: 100%;
+  height: 490px;
+  margin-bottom: 40px;
+  display: flex;
+}

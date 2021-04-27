@@ -1,0 +1,15 @@
+<div class="video-container"
+     [ngStyle]="{'display':showVideoView ? 'block':'none'}">
+  <div class="video-view-header">
+    <button type="button" class="close" (click)="onCloseButtonClick()" aria-hidden="true">&times;</button>
+    <span class="video-view-title" id="myModalLabel">查看视频</span>
+  </div>
+  <div class="video-view-body">
+    <div id="liveAContainer" [ngStyle]="{'visibility': showVideoView && videoUrlA ? 'visible':'hidden'}">
+    </div>
+    <div id="liveBContainer" [ngStyle]="{'visibility': showVideoView && videoUrlB ? 'visible':'hidden'}">
+    </div>
+    <span class="bg-loading bg-loading-a" *ngIf="showVideoView && videoUrlA">Loading...</span>
+    <span class="bg-loading bg-loading-b" *ngIf="showVideoView && videoUrlB">Loading...</span>
+  </div>
+</div>

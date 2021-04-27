@@ -1,0 +1,9 @@
+<div class="full-container"
+     [class.full-container-superlg]="sourceSize === 'superlg'"
+     [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+  <app-full-title [title]="'沈阳停车官微新增用户曲线'" [globalSize]="sourceSize"></app-full-title>
+  <div class="chart-item-content">
+    <div echarts class="chart-flow" [options]="chartOptions" (chartInit)="onChartInit($event)">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="full-monitor-container" [class.full-monitor-container-sm]="sourceSize==='sm'"
+     [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+  <app-full-title [title]="'实时动态'" [globalSize]="sourceSize"></app-full-title>
+  <div class="table-header-container">
+    <div class="table-header">
+      <div>停车场</div>
+      <div [ngStyle]="{visibility:!isSimplePermission? 'visible':'hidden'}">车位数</div>
+      <div>状态</div>
+    </div>
+  </div>
+  <div class="scroll-box" #scrollDiv (mouseenter)="onScrollDivMouseEnter()"
+       (mouseleave)="onScrollDivMouseLeave()">
+
+    <div class="scroll-box-item" *ngFor="let dataItem of dataList"
+         [ngStyle]="{background: dataItem.isOdd ? '':'#033447'}">
+      <div class="scroll-box-title"
+           [title]="dataItem.source.parking?.parking_name">
+        <span [ngStyle]="{color:dataItem.source.parking.area_type===1?'#18c7b8':'#14a4ed'}">[{{dataItem.source.parking?.area_type|areaType:true}}]</span>
+        {{dataItem.source.parking?.parking_name}}
+      </div>
+      <div [ngStyle]="{visibility:!isSimplePermission? 'visible':'hidden'}">
+        {{dataItem.source.tmp_num}}/{{dataItem.source.total_tmp_num}}</div>
+      <div>
+        <div class="scroll-box-status"
+             [ngStyle]="{background: dataItem.source.status|parkingState:true}">{{dataItem.source.status|parkingState}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

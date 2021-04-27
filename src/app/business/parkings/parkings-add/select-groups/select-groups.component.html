@@ -1,0 +1,22 @@
+<div class="content-flow">
+  <div *ngIf="false" class="progress-bar-menu">
+    <img src="/assets/images/last_step.png">
+  </div>
+  <div class="header-title">选择分组</div>
+  <form class="form-horizontal z-form-horizontal" (submit)="onAddSelectGroupsFormSubmit()"
+        #createGroupsInfoForm="ngForm" autocomplete="off">
+    <div class="form-group">
+      <div class="scroll-container" (scroll)="onScrollContainerScroll($event)">
+        <li *ngFor="let group of groupsList">
+          <input type="checkbox" [value]="group.parking_group_id" [id]="group.parking_group_id"
+                 (change)="selectedGroups($event)">
+          <label class="control-label selected-group-label-font" [attr.for]="group.parking_group_id">{{group.parking_group_name}}</label>
+        </li>
+      </div>
+    </div>
+    <div class="col-sm-8 form-footer">
+      <button type="submit" class="btn btn-primary" [disabled]="!createGroupsInfoForm.form.valid||!checkedGroups">完成</button>
+      <button type="button" class="btn btn-inverse" [routerLink]="['../']">跳过</button>
+    </div>
+  </form>
+</div>

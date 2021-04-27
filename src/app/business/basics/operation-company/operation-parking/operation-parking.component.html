@@ -1,0 +1,66 @@
+<div class="header">
+  <app-crumb [level1Name]="'运营公司管理'" [level2Name]="'运营停车场'" [level1RelativePath]="'../'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form" role="search" autocomplete="off">
+      <div class="form-group">
+        <span>编码：</span>
+        <input class="form-control" placeholder="请输入停车场编码" [(ngModel)]="searchParams.parking_id" name="parking_id"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>名称：</span>
+        <input class="form-control" placeholder="请输入停车场名称" [(ngModel)]="searchParams.parking_name" name="parking_name"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group search-position">
+        <span>位置：</span>
+        <app-pro-city-dist-select class="position-select" [hasAdd]="true"
+                                  [region_id]="current_region_id"></app-pro-city-dist-select>
+        <input class="form-control" type="text" appIgnoreSpace placeholder="请输入停车场位置" maxlength="50"
+               [(ngModel)]="searchParams.address" name="address"/>
+      </div>
+      <div class="form-group">
+        <span>状态：</span>
+        <select class="form-control" [(ngModel)]="searchParams.status" name="status">
+          <option value="1">正常</option>
+          <option value="2">已注销</option>
+        </select>
+      </div>
+      <button type="button" (click)="clickBtnToSearch()">查询</button>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>停车场编码</th>
+        <th>停车场名称</th>
+        <th>停车场地址</th>
+        <th>{{searchParams.status==1 ? '运营开始时间' : '运营停止时间'}}</th>
+        <th>状态</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let companyParking of companyParkingsList; let index=index" (click)="onSelect(companyParking)"
+          [ngClass]="{tableActive: companyParking.parking_id==currentSelectCompanyParking.parking_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td>{{companyParking.parking_id}}</td>
+        <td [title]="companyParking.parking_name">{{companyParking.parking_name | zMaxLength:15}}</td>
+        <td [title]="(companyParking | parkingFormatAddress:2)">
+          {{(companyParking | parkingFormatAddress:2) | zMaxLength:20}}
+        </td>
+        <td>
+          {{(companyParking.status===1 ? companyParking.created_time : companyParking.cancel_time)*1000 | date:'yyyy-MM-dd HH:mm:ss'}}
+        </td>
+        <td>{{(companyParking.status===1) ? '正常' : '已注销'}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && companyParkingsList.length === 0">
+    </app-no-data-page>
+    <app-pagination [currentPage]="searchAssistant.currentPage"
+                    [pageCount]="searchAssistant.pageList.length"
+                    (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+  </div>
+</div>

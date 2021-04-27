@@ -1,0 +1,49 @@
+<div class="full-container full-container-sm"
+     [ngStyle]="{width:sourceWidth + 'px',height:sourceHeight + 'px'}">
+  <app-full-title2 [title]="fullTitle" globalSize="sm"></app-full-title2>
+  <div class="chart-item-content">
+    <div echarts class="chart-dashboard" [options]="chartOptions" (chartInit)="onChartInit($event)">
+    </div>
+    <div class="chart-detail" *ngIf="areaType === 1">
+      <div class="chart-header">
+        <app-full-counter2 [title]="'泊位总数'"
+                           [count]="dataInfo.inside_total_num"
+                           [size]="sourceSize"></app-full-counter2>
+      </div>
+      <div class="chart-progress-1">
+        <app-full-progressbar2 [title]="'占用泊位数'"
+                               [count]="dataInfo?dataInfo.inside_used_num:0"
+                               [total]="dataInfo?dataInfo.inside_total_num:0"
+                               [color]="'#47d26d'"
+                               [size]="sourceSize"></app-full-progressbar2>
+      </div>
+      <div class="chart-progress-2">
+        <app-full-progressbar2 [title]="'空闲泊位数'" [count]="dataInfo?dataInfo.inside_unused_num:0"
+                               [total]="dataInfo?dataInfo.inside_total_num:0"
+                               [color]="'#f45c63'"
+                               [size]="sourceSize"></app-full-progressbar2>
+      </div>
+    </div>
+    <div class="chart-detail" *ngIf="areaType === 2">
+      <div class="chart-header">
+        <app-full-counter2 [title]="'泊位总数'"
+                           [count]="dataInfo.outside_total_num"
+                           [size]="sourceSize"></app-full-counter2>
+      </div>
+      <div class="chart-progress-1">
+        <app-full-progressbar2 [title]="'占用泊位数'"
+                               [count]="dataInfo?dataInfo.outside_used_num:0"
+                               [total]="dataInfo?dataInfo.outside_total_num:0"
+                               [color]="'#47d26d'"
+                               [size]="sourceSize"></app-full-progressbar2>
+      </div>
+      <div class="chart-progress-2">
+        <app-full-progressbar2 [title]="'空闲泊位数'" [count]="dataInfo?dataInfo.outside_unused_num:0"
+                               [total]="dataInfo?dataInfo.outside_total_num:0"
+                               [color]="'#f45c63'"
+                               [size]="sourceSize"></app-full-progressbar2>
+      </div>
+    </div>
+  </div>
+</div>
+

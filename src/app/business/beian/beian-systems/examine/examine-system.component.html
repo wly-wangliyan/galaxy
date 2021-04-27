@@ -1,0 +1,142 @@
+<div class="header">
+  <app-crumb [level1Name]="'备案审核'" [level2Name]="'管理系统'"
+             [level2AbsolutePath]="level2AbsolutePath" [level3Name]="'审核备案'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="container examine-container" *ngIf="platformBeianInfo">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="examine-image" (click)="openZoomPictureModal()">
+          <img *ngIf="platformBeianInfo.authority_images" [src]="platformBeianInfo.authority_images[currentImageIndex]">
+        </div>
+        <div class="examine-image-btn clearfix" *ngIf="platformBeianInfo.authority_images.length>1">
+          <b class="image-switch image-switch-right"
+             [class.disabled]="currentImageIndex===platformBeianInfo.authority_images.length-1"
+             (click)="showNextImage(1)"></b>
+          <b class="image-switch-center">{{currentImageIndex+1}}/{{platformBeianInfo.authority_images.length}}</b>
+          <b class="image-switch image-switch-left" [class.disabled]="currentImageIndex===0"
+             (click)="showNextImage(-1)"></b>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="examine-item">
+          <div class="examine-tab">备案详情</div>
+          <table class="table examine-table">
+            <tr>
+              <td class="active">系统厂商：</td>
+              <td>
+                <span class="link-text" *ngIf="platformBeianInfo.manufacturerName"
+                      (click)="viewManufacturerDetailModal.showDetail(platformBeianInfo.manufacturerId)">{{platformBeianInfo.manufacturerName}}</span>
+                <span *ngIf="!platformBeianInfo.manufacturerName">--</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="active">停车管理系统：</td>
+              <td>{{platformBeianInfo.platform_name | zPlaceholder}}</td>
+            </tr>
+            <tr>
+              <td class="active">软著权编号：</td>
+              <td>
+                {{platformBeianInfo.authority_num | zPlaceholder}}
+              </td>
+            </tr>
+            <tr>
+              <td class="active">提交时间：</td>
+              <td>{{platformBeianInfo.created_time*1000| date:"y-MM-dd HH:mm:ss"}}</td>
+            </tr>
+          </table>
+
+          <div class="btn-examine-wrap" *ngIf="examineType===0">
+            <button type="button" class="btn btn-primary" (click)="openExamineSystemModal()">审核</button>
+          </div>
+        </div>
+        <div class="examine-item" *ngIf="examineType!==0">
+          <div class="examine-tab">审核结果</div>
+          <table class="table examine-table">
+            <tr>
+              <td class="active">审核结果：</td>
+              <td>{{platformBeianInfo.reviewed_status|revieweStatus}}</td>
+            </tr>
+            <tr *ngIf="examineType===2">
+              <td class="active">原因：</td>
+              <td>{{platformBeianInfo.failed_reason | zPlaceholder}}</td>
+            </tr>
+            <tr *ngIf="examineType===1 && platformBeianInfo.remarks">
+              <td class="active">备注：</td>
+              <td>{{platformBeianInfo.remarks}}</td>
+            </tr>
+            <tr>
+              <td class="active">审核人：</td>
+              <td>
+                {{platformBeianInfo.user?.realname | zPlaceholder}}
+              </td>
+            </tr>
+            <tr>
+              <td class="active">审核时间：</td>
+              <td>{{platformBeianInfo.reviewed_time*1000| date:"y-MM-dd HH:mm:ss"}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 审核结果模态框 -->
+<div class="modal fade" id="platformBeianExamineModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     data-backdrop="false" data-keyboard="true" aria-hidden="true" *ngIf="platformBeianInfoAuditParams">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">审核</h4>
+      </div>
+      <form class="form-horizontal" #addPlatformBeianExamineForm="ngForm" autocomplete="off"
+            (submit)="onAddPlatformBeianExamineFormSubmit()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">审核结果：</label>
+            <div class="col-sm-9 examine-radio-wrap">
+              <label>
+                <input type="radio" name="status" value="1" [checked]="platformBeianInfoAuditParams.status===1"
+                       (change)="selectExamineResult($event)"/>
+                通过
+              </label>
+              <label>
+                <input type="radio" name="status" value="2" [checked]="platformBeianInfoAuditParams.status===2"
+                       (change)="selectExamineResult($event)"/>
+                不通过
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">
+              <b *ngIf="platformBeianInfoAuditParams.status===2">* </b>
+              备注：
+            </label>
+            <div class="col-sm-8">
+              <textarea class="form-control" cols="3" rows="3" name="failed_reason" maxlength="100"
+                        [(ngModel)]="platformBeianInfoAuditParams.failed_reason"
+                        [required]="platformBeianInfoAuditParams.status===2"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary"
+                  [disabled]="!addPlatformBeianExamineForm.form.valid||!platformBeianInfoAuditParams.status">确定
+          </button>
+          <button type="button" class="btn btn-inverse" data-dismiss="modal">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- 图片放大 -->
+<app-z-photo-select *ngIf="platformBeianInfo"
+                    [imageUrls]="platformBeianInfo.authority_images"
+                    [isCallbackImgIndex]="true"
+                    (currentPictureIndex)="onPictureIndexChange($event)"></app-z-photo-select>
+
+<app-manufacturer-modal #viewManufacturerDetailModal></app-manufacturer-modal>

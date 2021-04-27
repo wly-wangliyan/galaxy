@@ -1,0 +1,68 @@
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form">
+      <div class="form-group">
+        <span>停车场名称：</span>
+        <input class="form-control" placeholder="请输入停车场名称" [(ngModel)]="searchParams.parking_name" name="parking_name"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>系统厂商：</span>
+        <input class="form-control" placeholder="请输入系统厂商名称" [(ngModel)]="searchParams.manufacturer_name"
+               name="manufacturer_name"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>状态：</span>
+        <select class="form-control" [(ngModel)]="searchParams.status" name="status" (change)="onStatusSelectChanged($event.target.value)">
+          <option value="1,2">正常</option>
+          <option value="3">运营过期</option>
+        </select>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>停车场名称</th>
+        <th>有效期</th>
+        <th>停车管理系统</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let parkingBeian of parkingBeianList; let index=index" (click)="onSelect(parkingBeian)"
+          [ngClass]="{tableActive: parkingBeian.parking?.parking_id==currentSelectParking.parking?.parking_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td [title]="parkingBeian.parking_name">{{parkingBeian.parking_name|zMaxLength:20}}</td>
+        <!--备案有效期-->
+        <td *ngIf="parkingBeian.start_time && parkingBeian.end_time">
+          {{parkingBeian.start_time * 1000|date: 'yyyy-MM-dd'}} 至 {{(parkingBeian.end_time-1) * 1000|date:'yyyy-MM-dd'}}
+        </td>
+        <td *ngIf="!(parkingBeian.start_time && parkingBeian.end_time)">--</td>
+        <!--停车管理系统-->
+        <td *ngIf="parkingBeian.manufacturerId" [title]="parkingBeian.platformFullName">
+        <span class="link-text" (click)="manufacturerDetailModal.showDetail(parkingBeian.manufacturerId)">
+          {{parkingBeian.platformFullName|zMaxLength:30}}
+        </span>
+        </td>
+        <td *ngIf="!parkingBeian.manufacturerId" [title]="parkingBeian.platformFullName">
+          {{parkingBeian.platformFullName|zPlaceholder|zMaxLength:30}}
+        </td>
+        <td>{{generateStatus(parkingBeian)}}</td>
+        <td class="td-operation">
+          <button [title]="'查看'" class="btn-operation icon-view"
+                  (click)="parkingDetailModal.showDetail(parkingBeian.parking.parking_id)"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && parkingBeianList.length === 0"></app-no-data-page>
+    <app-pagination [currentPage]="searchAssistant.currentPage"
+                    [pageCount]="searchAssistant.pageList.length"
+                    (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+  </div>
+</div>
+<app-parking-modal #parkingDetailModal></app-parking-modal>
+<app-manufacturer-modal #manufacturerDetailModal></app-manufacturer-modal>

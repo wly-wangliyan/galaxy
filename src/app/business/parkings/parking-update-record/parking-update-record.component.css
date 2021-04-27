@@ -1,0 +1,68 @@
+.col-sm-4 {
+  min-width: 33.33333333% !important;
+}
+
+.records-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  background: rgba(0, 0, 0, .5);
+  overflow-y: auto;
+}
+
+.modal-body-header {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.modal-body-table {
+  border: 1px solid #ddd;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.modal-body-table > div {
+  min-height: 30px;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-body-table > div > div:first-child span {
+  color: #9a9a9a;
+}
+
+.modal-body-table span {
+  margin: 0;
+  color: #333;
+  font-weight: normal;
+}
+
+.modal-body-table > div:last-child {
+  border-bottom: none;
+}
+
+.modal-body-table > div > div:first-child {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-right: 1px solid #ddd;
+}
+
+.modal-body-table > div > div:last-child {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.modal-body-table > div > div:last-child > span, .records-img {
+  margin-left: 5px;
+}

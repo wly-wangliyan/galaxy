@@ -1,0 +1,55 @@
+<div class="header">
+  <app-crumb [level1Name]="'基础管理'" [level2Name]="'系统厂商'"></app-crumb>
+</div>
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form">
+      <div class="form-group">
+        <span>名称：</span>
+        <input class="form-control" placeholder="请输入系统厂商名称" [(ngModel)]="searchParams.manufacturer_name"
+               name="manufacturer_name"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>联系人：</span>
+        <input class="form-control" placeholder="请输入联系人" [(ngModel)]="searchParams.contacts" name="contacts"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>联系方式：</span>
+        <input class="form-control" placeholder="请输入联系方式" [(ngModel)]="searchParams.telephone" name="telephone"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>系统厂商名称</th>
+        <th>联系人</th>
+        <th>联系电话</th>
+        <th>注册时间</th>
+        <th style="width: 4%;">操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let manufacturer of manufacturerList; let index=index" (click)="onSelect(manufacturer)"
+          [ngClass]="{tableActive: manufacturer.manufacturer_id==currentSelectManufacturer.manufacturer_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td [title]="manufacturer.manufacturer_name?manufacturer.manufacturer_name:''">{{manufacturer.manufacturer_name | zMaxLength:20}}</td>
+        <td>{{manufacturer.contacts|zPlaceholder}}</td>
+        <td>{{manufacturer.telephone}}</td>
+        <td>{{manufacturer.created_time *1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+        <td class="td-operation">
+          <button [title]="'查看详情'" class="btn-operation icon-view"
+                  [routerLink]="['detail', manufacturer.manufacturer_id]"></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && manufacturerList.length === 0"></app-no-data-page>
+    <app-pagination [currentPage]="searchAssistant.currentPage"
+                    [pageCount]="searchAssistant.pageList.length"
+                    (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+  </div>
+</div>

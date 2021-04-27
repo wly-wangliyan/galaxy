@@ -1,0 +1,61 @@
+<div class="content-flow">
+  <div class="list-container">
+    <form class="search-form">
+      <div class="form-group">
+        <span>停车场名称：</span>
+        <input class="form-control" placeholder="请输入停车场名称" [(ngModel)]="searchParams.parking_name" name="parking_name"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>系统名称：</span>
+        <input class="form-control" placeholder="请输入系统名称" [(ngModel)]="searchParams.platform_name" name="platform_name"
+               (keyup)="searchAssistant.submitSearch(true, $event)"/>
+      </div>
+      <div class="form-group">
+        <span>状态：</span>
+        <select class="form-control" [(ngModel)]="searchParams.is_online" name="is_online"
+                (change)="onStatusSelectChanged($event.target.value)">
+          <option value="true">系统上线</option>
+          <option value="false">系统下线</option>
+        </select>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th class="special-text-index">序号</th>
+        <th>停车场名称</th>
+        <th>停车场地址</th>
+        <th>系统名称</th>
+        <th>上线时间</th>
+        <th *ngIf="searchParams.is_online === 'false'">下线时间</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let platformOnline of platformOnlineList; let index=index" (click)="onSelect(platformOnline)"
+          [ngClass]="{tableActive: platformOnline.platform_online_id==currentSelectPlatformOnline.platform_online_id}">
+        <td class="special-text-index">{{((searchAssistant.currentPage-1)*searchAssistant.pageSize+index+1)|zeroFill}}</td>
+        <td *ngIf="platformOnline.parking"><span class="link-text"
+                                                 (click)="parkingDetailModal.showDetail(platformOnline.parking.parking_id)">{{platformOnline.parking.parking_name}}</span>
+        </td>
+        <td *ngIf="!platformOnline.parking || !platformOnline.parking.address">--</td>
+        <td *ngIf="platformOnline.parking && platformOnline.parking.address" [title]="platformOnline.parking?.address">
+          {{platformOnline.parking?.address|zMaxLength:20|zPlaceholder}}
+        </td>
+        <td>{{platformOnline.platform?.platform_name|zPlaceholder}}
+        </td>
+        <td>{{platformOnline.online_time *1000|date: 'yyyy-MM-dd HH:mm:ss'}}
+        </td>
+        <td *ngIf="searchParams.is_online === 'false'">{{platformOnline.offline_time * 1000|date: 'yyyy-MM-dd
+          HH:mm:ss'}}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <app-no-data-page *ngIf="isLoadComplete && platformOnlineList.length === 0"></app-no-data-page>
+    <app-pagination [currentPage]="searchAssistant.currentPage"
+                    [pageCount]="searchAssistant.pageList.length"
+                    (pageSelected)="searchAssistant.pageSelected($event)"></app-pagination>
+  </div>
+</div>
+<app-parking-modal #parkingDetailModal></app-parking-modal>

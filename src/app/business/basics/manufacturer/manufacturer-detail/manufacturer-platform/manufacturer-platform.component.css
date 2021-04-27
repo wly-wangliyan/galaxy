@@ -1,0 +1,13 @@
+.content-flow {
+  height: calc(100% - 124px);
+}
+
+.list-container {
+  padding-top: 30px;
+  margin-top: 0;
+  min-height: calc(100% - 20px);
+}
+
+.not-allow {
+  cursor: not-allowed !important;
+}
